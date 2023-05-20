@@ -1,0 +1,52 @@
+[
+  {
+    "tag_name": "entity",
+    "ids_to_tags": {
+      "1": "B-age",
+      "2": "I-age",
+      "3": "L-age",
+      "4": "U-age",
+      "5": "B-aid",
+      "6": "I-aid",
+      "7": "L-aid",
+      "8": "U-aid",
+      "9": "B-city",
+      "10": "I-city",
+      "11": "L-city",
+      "12": "U-city",
+      "13": "B-mobile_no",
+      "14": "I-mobile_no",
+      "15": "L-mobile_no",
+      "16": "U-mobile_no",
+      "17": "B-name",
+      "18": "I-name",
+      "19": "L-name",
+      "20": "U-name",
+      "0": "O"
+    },
+    "tags_to_ids": {
+      "B-age": 1,
+      "I-age": 2,
+      "L-age": 3,
+      "U-age": 4,
+      "B-aid": 5,
+      "I-aid": 6,
+      "L-aid": 7,
+      "U-aid": 8,
+      "B-city": 9,
+      "I-city": 10,
+      "L-city": 11,
+      "U-city": 12,
+      "B-mobile_no": 13,
+      "I-mobile_no": 14,
+      "L-mobile_no": 15,
+      "U-mobile_no": 16,
+      "B-name": 17,
+      "I-name": 18,
+      "L-name": 19,
+      "U-name": 20,
+      "O": 0
+    },
+    "num_tags": 21
+  }
+]

@@ -8,10 +8,85 @@ intents:
   - mood_great
   - mood_unhappy
   - bot_challenge
+  - call_me
+  - inform
+  - stop
+  - get_mobile_no
+  - call_cancel_form
+  - get_AID
+
+entities:
+- name
+- age
+- mobile_no
+- city
+- aid
+
+actions:
+  - action_get_form_details
+  - validate_app_form
+  - validate_cancel_form
+  - action_successfull_cancel
+
+slots:
+  name:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: name
+      conditions:
+      - active_loop: app_form
+  age:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: age
+      conditions:
+      - active_loop: app_form
+  mobile_no:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: mobile_no
+      conditions:
+      - active_loop: app_form
+  city:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: city
+      conditions:
+      - active_loop: app_form
+  aid:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: aid
+      conditions:
+      - active_loop: cancel_form
+
+forms:
+  app_form:
+    required_slots:
+    - name
+    - age
+    - mobile_no
+    - city
+  cancel_form:
+    required_slots:
+    - aid
 
 responses:
   utter_greet:
   - text: "Hey! How are you?"
+
+  utter_remember:
+  - text: "form is filled up"
 
   utter_cheer_up:
   - text: "Here is something to cheer you up:"
@@ -25,6 +100,24 @@ responses:
 
   utter_goodbye:
   - text: "Bye"
+
+  utter_ask_continue: 
+  - text: "Ohk Bye !"
+
+  utter_ask_name: 
+  - text: "what is your name ?"
+
+  utter_ask_age: 
+  - text: "what is your age ?"
+
+  utter_ask_mobile_no: 
+  - text: "what is your mobile number ?"
+
+  utter_ask_city: 
+  - text: "what is your city ?"
+
+  utter_ask_aid: 
+  - text: "Enter the Appointment ID ?"
 
   utter_iamabot:
   - text: "I am a bot, powered by Rasa."

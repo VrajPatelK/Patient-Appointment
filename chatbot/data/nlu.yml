@@ -1,6 +1,168 @@
 version: "3.1"
 
 nlu:
+
+- regex: mobile_no
+  examples: |
+    - \b\d{4,}\b
+
+- regex: age
+  examples: |
+    - \b\d{1,3}\b
+
+- regex: aid
+  examples: |
+    - \b\d{5}_[a-zA-Z]{5}\b
+
+- intent: call_me
+  examples: |
+    - fill up the form
+    - i want to fill form
+    - fill form
+    - provide me form
+    - form fill up
+    - lets fill the form
+    - fill form
+
+- intent: stop
+  examples: |
+    - stop
+    - nevermind
+    - please stop
+    - i want to stop
+    - stop the form
+
+- intent: inform
+  examples: |
+    - my name is [gaurav_teli](name)
+    - my name is [vraj_patel](name)
+    - my name is [dhruv_patel](name)
+    - [gaurav_teli](name)
+    - [vraj_patel](name)
+    - [dhruv_patel](name)
+    - [gaurav_teli](name) is my name
+    - name is [vraj_patel](name)
+    - name is [dhruv_patel](name)
+    - name is [gaurav_teli](name)
+    - my name is [gaurav teli](name)
+    - my name is [vraj patel](name)
+    - my name is [dhruv_patel](name)
+    - [gaurav teli](name)
+    - [vraj patel](name)
+    - [dhruv patel](name)
+    - [gaurav teli](name) is my name
+    - name is [vraj patel](name)
+    - name is [dhruv patel](name)
+    - name is [gaurav teli](name)
+    - [21](age)
+    - [20](age)
+    - [Godhara](city)
+    - [Nadiad](city)
+    - [Navasari](city)
+    - [Mumbai](city)
+    - [Thane](city)
+    - [Surat](city)
+
+- intent: get_mobile_no
+  examples: |
+    - [6355312073](mobile_no)
+    - [8732937702](mobile_no)
+    - [6355312073](mobile_no) 
+  
+- intent: call_cancel_form
+  examples: |
+    - I need to cancel my scheduled appointment.
+    - Please cancel my appointment reservation.
+    - Can you assist me in canceling my appointment?
+    - I have decided to cancel my appointment.
+    - I no longer require the appointment, so please cancel it.
+    - I want to cancel my upcoming appointment.
+    - Help me cancel the appointment that I booked.
+    - I would like to cancel the appointment I made.
+    - Please proceed with canceling my appointment.
+    - I've changed my plans and need to cancel the appointment.
+    - Cancel the appointment I have scheduled, please.
+    - I need to cancel the appointment due to unforeseen circumstances.
+    - Can you cancel the appointment for me?
+    - Please cancel the appointment on my behalf.
+    - I no longer need the appointment, so please cancel it.
+    - I want to cancel the appointment reservation.
+    - Help me with canceling the appointment I had.
+    - I need to cancel my appointment booking.
+    - Please cancel the appointment I had scheduled.
+    - I've decided to cancel the appointment. Please proceed.
+    - Cancel the appointment I made previously.
+    - I want to cancel my appointment. Can you assist?
+    - Help me cancel the appointment I scheduled.
+    - I need to cancel the appointment I had reserved.
+    - Please cancel the appointment that was booked.
+    - I want to cancel the appointment with immediate effect.
+    - Help me with canceling the appointment reservation.
+    - I need to cancel the appointment. Can you assist me?
+    - Please proceed with canceling the appointment as soon as possible.
+    - I've changed my mind and want to cancel the appointment.
+    - Cancel
+    - my appointment ID is [12345_ABCDE](aid)
+    - [12345_ABCDE](aid)
+    - I want to cancel my appointment with ID [12345_ABCDE](aid)
+    - Please cancel my appointment. The ID is [67890_XYZAB](aid)
+    - Can you assist me in canceling my appointment? The ID is [98765_QWERT](aid)
+    - I need to cancel my appointment with ID [54321_UIOJK](aid)
+    - My appointment ID is [24680_ZXCVB](aid), and I want to cancel it.
+    - I want to cancel my appointment with ID [13579_POIUY](aid). Can you help?
+    - Help me cancel my appointment. The ID is [86420_MNBVC](aid).
+    - Can you please cancel my appointment with ID [97531_YTREW](aid)?
+    - I need to cancel my appointment with ID [24680_KLJHG](aid). Please assist.
+    - I want to cancel my appointment. The ID is [64257_QWERT](aid)
+    - Please cancel my appointment with ID [12345_ASDER](aid)
+    - I need to cancel my appointment with ID [56789_POIUY](aid). Can you help me?
+    - Help me cancel my appointment. The ID is [98765_LKJHG](aid).
+    - Can you assist me in canceling my appointment with ID [24680_ZXCVB](aid)?
+    - I want to cancel my appointment with ID [54321_UIJKL](aid). Please help me.
+    - Please cancel my appointment. The ID is [13579_QWERT](aid).
+    - I need to cancel my appointment with ID [86420_ASDER](aid). Can you assist?
+    - Can you please cancel my appointment with ID [97531_KLJHG](aid)?
+    - I want to cancel my appointment with ID [24680_YTREW](aid). Help me with that.
+    - Please cancel my appointment. The ID is [64257_MNBVC](aid).
+    - I need to cancel my appointment with ID [12345_UIOJK](aid). Can you assist me?
+    - Help me cancel my appointment. The ID is [56789_ZXCVB](aid).
+    - Can you please cancel my appointment with ID [24680_POIUY](aid)?
+    - I want to cancel my appointment with ID [98765_ASDER](aid). Please assist me.
+    - Please cancel my appointment. The ID is [54321_LKJHG](aid).
+
+
+- intent: get_AID
+  examples: |
+    - my appointment ID is [12345_ABCDE](aid)
+    - [12345_ABCDE](aid)
+    - I want to cancel my appointment with ID [12345_ABCDE](aid)
+    - Please cancel my appointment. The ID is [67890_XYZAB](aid)
+    - Can you assist me in canceling my appointment? The ID is [98765_QWERT](aid)
+    - I need to cancel my appointment with ID [54321_UIOJK](aid)
+    - My appointment ID is [24680_ZXCVB](aid), and I want to cancel it.
+    - I want to cancel my appointment with ID [13579_POIUY](aid). Can you help?
+    - Help me cancel my appointment. The ID is [86420_MNBVC](aid).
+    - Can you please cancel my appointment with ID [97531_YTREW](aid)?
+    - I need to cancel my appointment with ID [24680_KLJHG](aid). Please assist.
+    - I want to cancel my appointment. The ID is [64257_QWERT](aid)
+    - Please cancel my appointment with ID [12345_ASDER](aid)
+    - I need to cancel my appointment with ID [56789_POIUY](aid). Can you help me?
+    - Help me cancel my appointment. The ID is [98765_LKJHG](aid).
+    - Can you assist me in canceling my appointment with ID [24680_ZXCVB](aid)?
+    - I want to cancel my appointment with ID [54321_UIJKL](aid). Please help me.
+    - Please cancel my appointment. The ID is [13579_QWERT](aid).
+    - I need to cancel my appointment with ID [86420_ASDER](aid). Can you assist?
+    - Can you please cancel my appointment with ID [97531_KLJHG](aid)?
+    - I want to cancel my appointment with ID [24680_YTREW](aid). Help me with that.
+    - Please cancel my appointment. The ID is [64257_MNBVC](aid).
+    - I need to cancel my appointment with ID [12345_UIOJK](aid). Can you assist me?
+    - Help me cancel my appointment. The ID is [56789_ZXCVB](aid).
+    - Can you please cancel my appointment with ID [24680_POIUY](aid)?
+    - I want to cancel my appointment with ID [98765_ASDER](aid). Please assist me.
+    - Please cancel my appointment. The ID is [54321_LKJHG](aid).
+
+
+
 - intent: greet
   examples: |
     - hey

@@ -2,6 +2,45 @@ version: "3.1"
 
 rules:
 
+# logic is used to activate the form and the form will remain active untill all the slots are not filled
+
+- rule: Activate Form for Appointment
+  steps:
+  - intent: call_me
+  - action: app_form
+  - active_loop: app_form
+
+# this logic is used to submit the form means after all the slots are filled.
+
+- rule: Submit Form for Appointment
+  condition:
+  - active_loop: app_form
+  steps:
+  - action: app_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_get_form_details
+
+#  logic for activating form for cancelation.
+
+- rule: Activate Form For Cancelation
+  steps:
+  - intent: call_cancel_form
+  - action: cancel_form
+  - active_loop: cancel_form
+
+
+- rule: Submit Form For Cancelation
+  condition:
+  - active_loop: cancel_form
+  steps:
+  - action: cancel_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_successfull_cancel
+
 - rule: Say goodbye anytime the user says goodbye
   steps:
   - intent: goodbye
@@ -11,3 +50,5 @@ rules:
   steps:
   - intent: bot_challenge
   - action: utter_iamabot
+
+
