@@ -16,12 +16,13 @@ intents:
   - get_AID
 
 entities:
-- name
-- age
-- mobile_no
-- city
-- aid
-
+  - name
+  - age
+  - mobile_no
+  - city
+  - aid
+  - sentOTP
+  - otp
 actions:
   - action_get_form_details
   - validate_app_form
@@ -29,6 +30,18 @@ actions:
   - action_successfull_cancel
 
 slots:
+  sentOTP:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: sentOTP
+  otp:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: otp
   name:
     type: text
     influence_conversation: true
@@ -51,6 +64,14 @@ slots:
     mappings:
     - type: from_entity
       entity: mobile_no
+      conditions:
+      - active_loop: app_form
+  email:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: email
       conditions:
       - active_loop: app_form
   city:
@@ -77,6 +98,8 @@ forms:
     - age
     - mobile_no
     - city
+    - email
+
   cancel_form:
     required_slots:
     - aid
@@ -109,6 +132,9 @@ responses:
 
   utter_ask_age: 
   - text: "what is your age ?"
+
+  utter_ask_email: 
+  - text: "what is your email ?"
 
   utter_ask_mobile_no: 
   - text: "what is your mobile number ?"

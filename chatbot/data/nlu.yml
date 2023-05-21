@@ -251,3 +251,31 @@ nlu:
     - are you a human?
     - am I talking to a bot?
     - am I talking to a human?
+
+- regex: otp
+  examples: |
+    - \b\d{6}\b
+
+
+- intent: wr_otp
+  examples: |
+    - [123456](otp)
+    - otp is [123656](otp)
+    - here is otp [173656](otp)
+    - [783656](otp) is otp
+
+- regex: email
+  examples: |
+    - \b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b
+
+# - intent: get_email
+#   examples: |
+#     - my email is [dhruv20345@gmail.com](email)
+#     - my email is [gaurav@ddu.ac.in](email)
+#     - my email is [vraj@gmail.com](email)
+#     - email [dhruv20345@gmail.com](email)
+#     - email [gaurav@ddu.ac.in](email)
+#     - email [vraj@gmail.com](email)
+#     - [dhruv20345@gmail.com](email) email
+#     - [gaurav@ddu.ac.in](email) email
+#     - [vraj@gmail.com](email) email

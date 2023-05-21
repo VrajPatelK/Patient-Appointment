@@ -18,6 +18,7 @@ from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.types import DomainDict
 from typing import Text, List, Any, Dict
 from rasa_sdk.events import SlotSet
+from actions.sendMailFunction import sendMail
 
 DB_URL = "mongodb://localhost:27017"
 
@@ -83,6 +84,7 @@ class ActionHelloWorld(Action):
         age = tracker.get_slot("age")
         mobile_no = tracker.get_slot("mobile_no")
         city = tracker.get_slot("city")
+        email = tracker.get_slot("email")
         dispatcher.utter_message(f"Hello {name}")
         doc = {
             "_id": "aid_"+str(int(round(time.time() * 10))),
@@ -90,6 +92,8 @@ class ActionHelloWorld(Action):
             "age": age,
             "mobile_no": mobile_no,
             "city": city,
+            "email": email,
+            "status": "pending",
             "bookedOn": str(datetime.datetime.today())
         }
         appointment.insert_one(doc)
@@ -196,9 +200,11 @@ class ValidateCancelForm(FormValidationAction):
             return {"aid": None}
 
         # call API and  Print all the info about the Patient.
-
-        dispatcher.utter_message(text=f"Yes Valid Appointment ID.")
-        return {"aid": slot_value}
+        dt = appointment.find_one({"_id": slot_value})
+        email = dt["email"]
+        otp = sendMail(email)
+        dispatcher.utter_message(text=f"Yes Valid Appointment ID. and OTP is send to your registered email "+email)
+        return {"aid": slot_value, "sentOTP": otp}
 
     # Logic for printing Message for Successfull Cancelation
 
@@ -213,8 +219,16 @@ class ResultForCancel(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
         aid = tracker.get_slot("aid")
-        dispatcher.utter_message(
-            f"The Appointment for AID({aid}) is been canceled Successfully !")
+        otp = tracker.get_slot("otp")
+        sentOTP = tracker.get_slot("sentOTP")
+        if aid is not None:
+            if otp == sentOTP:
+                appointment.update_one(
+                    {"_id": aid}, {"$set": {"status": "cancelled"}})
+                data = "Your Appointment has been cancelled for AID : " + aid
+            else:
+                data = "Wrong OTP ! "
+        dispatcher.utter_message(text=data)
 
         # reset all the slots .........
         slots = [
