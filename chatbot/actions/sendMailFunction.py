@@ -40,5 +40,5 @@ def sendMail(recipient_email):
     message = 'Your OTP is '+otp
     print("Sending...")
     send_email(sender_email, sender_password, recipient_email, subject, message)
-
+    return otp
 # sendMail("dhruv20345@gmail.com")

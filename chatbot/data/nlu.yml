@@ -69,6 +69,9 @@ nlu:
     - [8732937702](mobile_no)
     - [6355312073](mobile_no) 
   
+
+# for form cancellation ..................#################################
+
 - intent: call_cancel_form
   examples: |
     - I need to cancel my scheduled appointment.
@@ -161,6 +164,37 @@ nlu:
     - I want to cancel my appointment with ID [98765_ASDER](aid). Please assist me.
     - Please cancel my appointment. The ID is [54321_LKJHG](aid).
 
+- regex: otp
+  examples: |
+    - \b\d{6}\b
+
+
+- intent: wr_otp
+  examples: |
+    - [123456](otp)
+    - otp is [123656](otp)
+    - here is otp [173656](otp)
+    - [783656](otp) is otp
+
+- regex: email
+  examples: |
+    - \b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b
+
+- intent: get_email
+  examples: |
+    - my email is [dhruv20345@gmail.com](email)
+    - my email is [gaurav@ddu.ac.in](email)
+    - my email is [vraj@gmail.com](email)
+    - email [dhruv20345@gmail.com](email)
+    - email [gaurav@ddu.ac.in](email)
+    - email [vraj@gmail.com](email)
+    - [dhruv20345@gmail.com](email) email
+    - [gaurav@ddu.ac.in](email) email
+    - [vraj@gmail.com](email) email
+
+
+
+
 
 
 - intent: greet
@@ -252,30 +286,26 @@ nlu:
     - am I talking to a bot?
     - am I talking to a human?
 
-- regex: otp
-  examples: |
-    - \b\d{6}\b
 
 
-- intent: wr_otp
-  examples: |
-    - [123456](otp)
-    - otp is [123656](otp)
-    - here is otp [173656](otp)
-    - [783656](otp) is otp
 
-- regex: email
-  examples: |
-    - \b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b
 
-# - intent: get_email
+
+
+
+
+# # form status Check changes done by me
+# - intent: call_check_appointment_form
 #   examples: |
-#     - my email is [dhruv20345@gmail.com](email)
-#     - my email is [gaurav@ddu.ac.in](email)
-#     - my email is [vraj@gmail.com](email)
-#     - email [dhruv20345@gmail.com](email)
-#     - email [gaurav@ddu.ac.in](email)
-#     - email [vraj@gmail.com](email)
-#     - [dhruv20345@gmail.com](email) email
-#     - [gaurav@ddu.ac.in](email) email
-#     - [vraj@gmail.com](email) email
+#     - i want to check my appointment status
+#     - check status
+#     - Can you please provide the status of my appointment?
+#     - I would like to know the current status of my appointment.
+#     - What is the status of my appointment?
+#     - Could you tell me if my appointment has been confirmed?
+#     - Has there been any update on the status of my appointment?
+#     - Is my appointment still scheduled for [date/time]?
+#     - Can you check if my appointment is still on the schedule?
+#     - I'm wondering if my appointment status has changed.
+#     - Has there been any change in the status of my appointment?
+#     - Can you verify whether my appointment is still active?
