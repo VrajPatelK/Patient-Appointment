@@ -27,7 +27,7 @@ from actions.sendMailFunction import sendMail
 DB_URL = "mongodb+srv://gauravteli:gauravteli@cluster0.iykzyey.mongodb.net/?retryWrites=true&w=majority"
 
 # adding not adding the security by Secure Socket Layer
-client = MongoClient(DB_URL,ssl_cert_reqs=ssl.CERT_NONE)
+client = MongoClient(DB_URL, ssl_cert_reqs=ssl.CERT_NONE)
 
 print("connected successfully")
 
@@ -69,7 +69,7 @@ CITIES = [
 ]
 
 
-# generating a unique Appointment Id -> 
+# generating a unique Appointment Id ->
 def generate_unique_id():
     digit_part = ''.join(secrets.choice(string.digits) for _ in range(5))
     char_part = ''.join(secrets.choice(string.ascii_letters) for _ in range(5))
@@ -105,7 +105,8 @@ class ActionHelloWorld(Action):
             "bookedOn": str(datetime.datetime.today())
         }
         appointment.insert_one(doc)
-        dispatcher.utter_message(f"Hello {name} you appointment ID is {aid} Remember you appointment ID !")
+        dispatcher.utter_message(
+            f"Hello {name} you appointment ID is {aid} Remember you appointment ID !")
         # reset all the slots .........
         slots = [
             SlotSet("name", None),
@@ -117,6 +118,7 @@ class ActionHelloWorld(Action):
         return slots
 
 # validation logic for appointment
+
 
 class ValidateAppForm(FormValidationAction):
     def name(self) -> Text:
@@ -186,7 +188,7 @@ class ValidateAppForm(FormValidationAction):
             return {"city": None}
         dispatcher.utter_message(text=f"Your entered city is {slot_value}.")
         return {"city": slot_value}
-    
+
     def validate_email(
         self,
         slot_value: Any,
@@ -196,7 +198,8 @@ class ValidateAppForm(FormValidationAction):
     ) -> Dict[Text, Any]:
         """Validate `email` value."""
 
-        dispatcher.utter_message(text=f"Your entered Email ID is {slot_value}.")
+        dispatcher.utter_message(
+            text=f"Your entered Email ID is {slot_value}.")
         return {"email": slot_value}
 
 
@@ -215,23 +218,24 @@ class ValidateCancelForm(FormValidationAction):
     ) -> Dict[Text, Any]:
         """Validate `aid` value."""
 
-
         # call API and  Print all the info about the Patient.
         dt = appointment.find_one({"_id": slot_value})
         if dt == None:
             dispatcher.utter_message(
                 text=f"{slot_value} Invalid Appointment ID .")
             return {"aid": None}
-        elif dt["status"] == "cancelled" :   
-            dispatcher.utter_message(text=f"Already Cancelled the Appointment for AID {slot_value} ")
-            return {"aid": slot_value,"requested_slot": None}
+        elif dt["status"] == "cancelled":
+            dispatcher.utter_message(
+                text=f"Already Cancelled the Appointment for AID {slot_value} ")
+            return {"aid": slot_value, "requested_slot": None}
         else:
             email = dt["email"]
             otp = sendMail(email)
             print(otp)
-            dispatcher.utter_message(text=f"Yes Valid Appointment ID. and OTP is send to your registered email "+email)
-            return {"aid": slot_value,"sentOTP": otp}
-    
+            dispatcher.utter_message(
+                text=f"Yes Valid Appointment ID. and OTP is send to your registered email "+email)
+            return {"aid": slot_value, "sentOTP": otp}
+
     def validate_otp(
         self,
         slot_value: Any,
@@ -242,10 +246,10 @@ class ValidateCancelForm(FormValidationAction):
         """Validate `otp` value."""
 
         sentOTP = tracker.get_slot("sentOTP")
-        
 
         if slot_value != sentOTP:
-            dispatcher.utter_message(text=f"Inavlid OTP Entered, Plz enter the valid OTP 😤!")
+            dispatcher.utter_message(
+                text=f"Inavlid OTP Entered, Plz enter the valid OTP 😤!")
             return {"otp": None}
         else:
             dispatcher.utter_message(text=f"OTP Validation Successfull 🫡 !")
@@ -266,25 +270,26 @@ class ResultForCancel(Action):
         aid = tracker.get_slot("aid")
         otp = tracker.get_slot("otp")
         sentOTP = tracker.get_slot("sentOTP")
-        appointment.update_one(
-            {"_id": aid}, {"$set": {"status": "cancelled"}})
-        data = "Your Appointment has been cancelled for AID : " + aid
+        if appointment.find_one({"_id": aid}) is not None:
+            if otp == sentOTP:
+                appointment.update_one(
+                    {"_id": aid}, {"$set": {"status": "cancelled"}})
+                data = "Your Appointment has been cancelled for AID : " + aid
+            else:
+                data = ("Wrong OTP")
+        else:
+            data = "No record match with aid: "+aid
         dispatcher.utter_message(text=data)
 
         # reset all the slots .........
         slots = [
             SlotSet("aid", None),
             SlotSet("otp", None),
-            SlotSet("sentOTP",None)
+            SlotSet("sentOTP", None)
         ]
         return slots
-    
 
-    # ###############################   
-
-
-
-
+    # ###############################
 
 
 #  for status check form ..
@@ -314,7 +319,7 @@ class ResultForCancel(Action):
 #             email = dt["email"]
 #             dispatcher.utter_message(text=f"Yes Valid Appointment ID. and your email is {email}")
 #             return {"aid": slot_value}
-        
+
 # class ResultForStatus(Action):
 
 #     def name(self) -> Text:
