@@ -14,13 +14,19 @@ intents:
   - get_mobile_no
   - call_cancel_form
   - get_AID
+  - get_email
+  - wr_otp
+
 
 entities:
-- name
-- age
-- mobile_no
-- city
-- aid
+  - name
+  - age
+  - mobile_no
+  - email
+  - city
+  - aid
+  - sentOTP
+  - otp
 
 actions:
   - action_get_form_details
@@ -29,6 +35,9 @@ actions:
   - action_successfull_cancel
 
 slots:
+
+#  form appointment slots
+
   name:
     type: text
     influence_conversation: true
@@ -53,6 +62,14 @@ slots:
       entity: mobile_no
       conditions:
       - active_loop: app_form
+  email:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: email
+      conditions:
+      - active_loop: app_form
   city:
     type: text
     influence_conversation: true
@@ -61,6 +78,8 @@ slots:
       entity: city
       conditions:
       - active_loop: app_form
+
+# form cancel slots .
   aid:
     type: text
     influence_conversation: true
@@ -69,6 +88,20 @@ slots:
       entity: aid
       conditions:
       - active_loop: cancel_form
+  otp:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: otp
+      conditions:
+      - active_loop: cancel_form
+  sentOTP:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: sentOTP
 
 forms:
   app_form:
@@ -76,10 +109,14 @@ forms:
     - name
     - age
     - mobile_no
+    - email
     - city
+
   cancel_form:
     required_slots:
     - aid
+    - otp
+
 
 responses:
   utter_greet:
@@ -104,11 +141,15 @@ responses:
   utter_ask_continue: 
   - text: "Ohk Bye !"
 
+# message fot form appointment
   utter_ask_name: 
   - text: "what is your name ?"
 
   utter_ask_age: 
   - text: "what is your age ?"
+
+  utter_ask_email: 
+  - text: "what is your email ?"
 
   utter_ask_mobile_no: 
   - text: "what is your mobile number ?"
@@ -116,8 +157,13 @@ responses:
   utter_ask_city: 
   - text: "what is your city ?"
 
+# message for form cancellation
+
   utter_ask_aid: 
   - text: "Enter the Appointment ID ?"
+
+  utter_ask_otp: 
+  - text: "Enter the 6-digit otp that has been received on your registered Email Id ?"
 
   utter_iamabot:
   - text: "I am a bot, powered by Rasa."
@@ -125,3 +171,15 @@ responses:
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
+
+
+
+
+  # - call_check_appointment_form 
+
+    # status_form:
+  #   required_slots:
+  #   - aid
+
+  # - validate_status_form
+  # - action_status_information

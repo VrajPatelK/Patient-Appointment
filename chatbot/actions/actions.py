@@ -7,12 +7,33 @@
 
 # This is a simple example for a custom action which utters "Hello World!"
 
+import datetime
+import time
+import string
+import secrets
+import certifi
+import ssl
+from pymongo import MongoClient
 from rasa_sdk import Tracker, FormValidationAction, Action
 from rasa_sdk.events import EventType
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.types import DomainDict
 from typing import Text, List, Any, Dict
 from rasa_sdk.events import SlotSet
+from actions.sendMailFunction import sendMail
+
+# mongodb+srv://gauravteli:gauravteli@cluster0.iykzyey.mongodb.net/?retryWrites=true&w=majority
+# DB_URL = "mongodb://localhost:27017"
+DB_URL = "mongodb+srv://gauravteli:gauravteli@cluster0.iykzyey.mongodb.net/?retryWrites=true&w=majority"
+
+# adding not adding the security by Secure Socket Layer
+client = MongoClient(DB_URL, ssl_cert_reqs=ssl.CERT_NONE)
+
+print("connected successfully")
+
+db = client["Rasa"]
+appointment = db["appointment"]
+
 #
 #
 # class ActionHelloWorld(Action):
@@ -28,7 +49,7 @@ from rasa_sdk.events import SlotSet
 #
 #         return []
 
-names = ["gaurav","vraj",".rasa"]
+names = ["gaurav", "vraj", ".rasa"]
 CITIES = [
     "mumbai",
     "delhi",
@@ -47,9 +68,8 @@ CITIES = [
     "thane"
 ]
 
-import secrets
-import string
 
+# generating a unique Appointment Id ->
 def generate_unique_id():
     digit_part = ''.join(secrets.choice(string.digits) for _ in range(5))
     char_part = ''.join(secrets.choice(string.ascii_letters) for _ in range(5))
@@ -58,7 +78,6 @@ def generate_unique_id():
 
 
 # printing got appointment
-
 class ActionHelloWorld(Action):
 
     def name(self) -> Text:
@@ -68,18 +87,38 @@ class ActionHelloWorld(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        name = tracker.get_slot("name");
-        dispatcher.utter_message(f"Hello {name}")
+        name = tracker.get_slot("name")
+        age = tracker.get_slot("age")
+        mobile_no = tracker.get_slot("mobile_no")
+        city = tracker.get_slot("city")
+        email = tracker.get_slot("email")
+        aid = generate_unique_id()
+        print(aid)
+        doc = {
+            "_id": aid,
+            "name": name,
+            "age": age,
+            "mobile_no": mobile_no,
+            "city": city,
+            "email": email,
+            "status": "pending",
+            "bookedOn": str(datetime.datetime.today())
+        }
+        appointment.insert_one(doc)
+        dispatcher.utter_message(
+            f"Hello {name} you appointment ID is {aid} Remember you appointment ID !")
         # reset all the slots .........
         slots = [
-            SlotSet("name",None),
-            SlotSet("age",None),
-            SlotSet("mobile_no",None),
-            SlotSet("city",None),
+            SlotSet("name", None),
+            SlotSet("age", None),
+            SlotSet("mobile_no", None),
+            SlotSet("city", None),
+            SlotSet("email", None),
         ]
         return slots
 
 # validation logic for appointment
+
 
 class ValidateAppForm(FormValidationAction):
     def name(self) -> Text:
@@ -95,11 +134,12 @@ class ValidateAppForm(FormValidationAction):
         """Validate `name` value."""
 
         if slot_value.lower() not in names:
-            dispatcher.utter_message(text=f"We only accept name: gaurav/vraj/.rasa.")
+            dispatcher.utter_message(
+                text=f"We only accept name: gaurav/vraj/.rasa.")
             return {"name": None}
         dispatcher.utter_message(text=f"OK! You want to have a {slot_value}.")
         return {"name": slot_value}
-    
+
     def validate_age(
         self,
         slot_value: Any,
@@ -110,11 +150,12 @@ class ValidateAppForm(FormValidationAction):
         """Validate `age` value."""
 
         if int(slot_value) <= 0 and int(slot_value) > 150:
-            dispatcher.utter_message(text=f"The entered age should be greater than 0 and less than equal to 150.")
+            dispatcher.utter_message(
+                text=f"The entered age should be greater than 0 and less than equal to 150.")
             return {"age": None}
         dispatcher.utter_message(text=f"OK! Your entered age is {slot_value}.")
         return {"age": slot_value}
-    
+
     def validate_mobile_no(
         self,
         slot_value: Any,
@@ -125,11 +166,13 @@ class ValidateAppForm(FormValidationAction):
         """Validate `mobile_no` value."""
 
         if len(slot_value.lower()) != 10:
-            dispatcher.utter_message(text=f"We only accept mobile no. with 10 digits .")
+            dispatcher.utter_message(
+                text=f"We only accept mobile no. with 10 digits .")
             return {"mobile_no": None}
-        dispatcher.utter_message(text=f"OK! your mobile number is {slot_value}.")
+        dispatcher.utter_message(
+            text=f"OK! your mobile number is {slot_value}.")
         return {"mobile_no": slot_value}
-    
+
     def validate_city(
         self,
         slot_value: Any,
@@ -140,11 +183,25 @@ class ValidateAppForm(FormValidationAction):
         """Validate `city` value."""
 
         if slot_value.lower() not in CITIES:
-            dispatcher.utter_message(text=f"{slot_value} is not come in our range ." + "/".join(CITIES))
+            dispatcher.utter_message(
+                text=f"{slot_value} is not come in our range ." + "/".join(CITIES))
             return {"city": None}
         dispatcher.utter_message(text=f"Your entered city is {slot_value}.")
         return {"city": slot_value}
-    
+
+    def validate_email(
+        self,
+        slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        """Validate `email` value."""
+
+        dispatcher.utter_message(
+            text=f"Your entered Email ID is {slot_value}.")
+        return {"email": slot_value}
+
 
 #  for cancelation of form ..
 class ValidateCancelForm(FormValidationAction):
@@ -161,16 +218,45 @@ class ValidateCancelForm(FormValidationAction):
     ) -> Dict[Text, Any]:
         """Validate `aid` value."""
 
-        if len(slot_value) != 11:
-            dispatcher.utter_message(text=f"{slot_value} Invalid Appointment ID .")
-            return {"aid": None}
-        
         # call API and  Print all the info about the Patient.
+        dt = appointment.find_one({"_id": slot_value})
+        if dt == None:
+            dispatcher.utter_message(
+                text=f"{slot_value} Invalid Appointment ID .")
+            return {"aid": None}
+        elif dt["status"] == "cancelled":
+            dispatcher.utter_message(
+                text=f"Already Cancelled the Appointment for AID {slot_value} ")
+            return {"aid": slot_value, "requested_slot": None}
+        else:
+            email = dt["email"]
+            otp = sendMail(email)
+            print(otp)
+            dispatcher.utter_message(
+                text=f"Yes Valid Appointment ID. and OTP is send to your registered email "+email)
+            return {"aid": slot_value, "sentOTP": otp}
 
-        dispatcher.utter_message(text=f"Yes Valid Appointment ID.")
-        return {"aid": slot_value}
-    
+    def validate_otp(
+        self,
+        slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        """Validate `otp` value."""
+
+        sentOTP = tracker.get_slot("sentOTP")
+
+        if slot_value != sentOTP:
+            dispatcher.utter_message(
+                text=f"Inavlid OTP Entered, Plz enter the valid OTP 😤!")
+            return {"otp": None}
+        else:
+            dispatcher.utter_message(text=f"OTP Validation Successfull 🫡 !")
+            return {"otp": slot_value}
+
     # Logic for printing Message for Successfull Cancelation
+
 
 class ResultForCancel(Action):
 
@@ -181,11 +267,80 @@ class ResultForCancel(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        aid = tracker.get_slot("aid");
-        dispatcher.utter_message(f"The Appointment for AID({aid}) is been canceled Successfully !")
+        aid = tracker.get_slot("aid")
+        otp = tracker.get_slot("otp")
+        sentOTP = tracker.get_slot("sentOTP")
+        if appointment.find_one({"_id": aid}) is not None:
+            if otp == sentOTP:
+                appointment.update_one(
+                    {"_id": aid}, {"$set": {"status": "cancelled"}})
+                data = "Your Appointment has been cancelled for AID : " + aid
+            else:
+                data = ("Wrong OTP")
+        else:
+            data = "No record match with aid: "+aid
+        dispatcher.utter_message(text=data)
 
         # reset all the slots .........
         slots = [
-            SlotSet("aid",None)
+            SlotSet("aid", None),
+            SlotSet("otp", None),
+            SlotSet("sentOTP", None)
         ]
         return slots
+
+    # ###############################
+
+
+#  for status check form ..
+
+# class ValidateStatusForm(FormValidationAction):
+
+#     def name(self) -> Text:
+#         return "validate_status_form"
+
+#     def validate_aid(
+#         self,
+#         slot_value: Any,
+#         dispatcher: CollectingDispatcher,
+#         tracker: Tracker,
+#         domain: DomainDict,
+#     ) -> Dict[Text, Any]:
+#         """Validate `aid` value."""
+
+
+#         # call API and  Print all the info about the Patient.
+#         dt = appointment.find_one({"_id": slot_value})
+#         if dt == None:
+#             dispatcher.utter_message(
+#                 text=f"{slot_value} Invalid Appointment ID . or you have not booked the appointment !")
+#             return {"aid": None}
+#         else:
+#             email = dt["email"]
+#             dispatcher.utter_message(text=f"Yes Valid Appointment ID. and your email is {email}")
+#             return {"aid": slot_value}
+
+# class ResultForStatus(Action):
+
+#     def name(self) -> Text:
+#         return "action_status_information"
+
+#     def run(self, dispatcher: CollectingDispatcher,
+#             tracker: Tracker,
+#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+
+#         aid = tracker.get_slot("aid")
+#         print(aid)
+#         dt = appointment.find_one({"_id": aid})
+#         email = dt["email"]
+#         name = dt["name"]
+#         status = dt["status"]
+#         aid = dt["_id"]
+#         dispatcher.utter_message(f"aid: {aid} ,name: {name} ,email: {email}, status: {status}")
+
+#         # reset all the slots .........
+#         slots = [
+#             SlotSet("aid", None)
+#         ]
+#         return slots

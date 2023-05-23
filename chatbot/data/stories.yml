@@ -43,6 +43,8 @@ stories:
   - slot_was_set:
     - requested_slot: mobile_no
   - slot_was_set:
+    - requested_slot: email
+  - slot_was_set:
     - requested_slot: city
   - intent: stop
   - action: utter_ask_continue
@@ -58,7 +60,34 @@ stories:
   - active_loop: cancel_form
   - slot_was_set:
     - requested_slot: aid
+  - slot_was_set:
+    - requested_slot: otp
   - intent: stop
   - action: utter_ask_continue
   - intent: affirm
   - action: action_deactivate_loop
+
+
+
+
+
+
+
+
+
+
+
+
+# - story: Flow for Status Check
+#   steps:
+#   - intent: greet
+#   - action: utter_greet
+#   - intent: call_check_appointment_form
+#   - action: status_form
+#   - active_loop: status_form
+#   - slot_was_set:
+#     - requested_slot: aid
+#   - intent: stop
+#   - action: utter_ask_continue
+#   - intent: affirm
+#   - action: action_deactivate_loop
