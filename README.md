@@ -88,13 +88,13 @@ The project was developed by the following individuals:
 
 ##### Project Guide
 
-Prof. (Dr.) V. K. Dabhi and Prof. Harshad Prajapati
-Department of Information Technology
-Faculty of Technology
-Dharmsinh Desai University, Nadiad
+Prof. (Dr.) V. K. Dabhi and Prof. Harshad Prajapati<br>
+Department of Information Technology<br>
+Faculty of Technology<br>
+Dharmsinh Desai University, Nadiad<br>
 
 ##### Head, Department of Information Technology
 
-Prof. (Dr.) V. K. Dabhi
-Faculty of Technology
-Dharmsinh Desai University, Nadiad
+Prof. (Dr.) V. K. Dabhi<br>
+Faculty of Technology<br>
+Dharmsinh Desai University, Nadiad<br>
