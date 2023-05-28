@@ -34,40 +34,82 @@ nlu:
 
 - intent: inform
   examples: |
-    - my name is [gaurav_teli](name)
-    - my name is [vraj_patel](name)
-    - my name is [dhruv_patel](name)
-    - [gaurav_teli](name)
-    - [vraj_patel](name)
-    - [dhruv_patel](name)
-    - [gaurav_teli](name) is my name
-    - name is [vraj_patel](name)
-    - name is [dhruv_patel](name)
-    - name is [gaurav_teli](name)
-    - my name is [gaurav teli](name)
-    - my name is [vraj patel](name)
-    - my name is [dhruv_patel](name)
-    - [gaurav teli](name)
-    - [vraj patel](name)
-    - [dhruv patel](name)
-    - [gaurav teli](name) is my name
-    - name is [vraj patel](name)
-    - name is [dhruv patel](name)
-    - name is [gaurav teli](name)
+    - my name is [gaurav](name)
+    - my name is [vraj](name)
+    - my name is [dhruv](name)
+    - my name is [jittam](name)
+    - my name is [aksh](name)
+    - my name is [gaurav](name)
+    - my name is [vraj](name)
+    - my name is [geeta](name)
+    - my name is [mita](name)
+    - my name is [amita](name)
+    - my name is [smita](name)
+    - [geeta](name) is my name
+    - [mita](name) is my name
+    - [amita](name) is my name
+    - [smita](name) is my name
+    - [gaurav](name)
+    - [vraj](name)
+    - [dhruv](name)
+    - [gaurav](name) is my name
+    - name is [dhruv](name)
+    - name is [gaurav](name)
+    - name is [vraj](name)
+    - [gaurav](name)
+    - [vraj](name)
+    - [dhruv](name)
+    - [gaurav](name) is my name
+    - name is [vraj](name)
+    - name is [dhruv](name)
+    - name is [gaurav](name)
     - [21](age)
     - [20](age)
+    - [50](age)
+    - my age is [21](age)
+    - i'm [21](age) year old
+    - [21](age) is my age
+    - my age is [20](age)
+    - i'm [20](age) year old
+    - [20](age) is my age
+    - my age is [50](age)
+    - i'm [50](age) year old
+    - [50](age) is my age
     - [Godhara](city)
     - [Nadiad](city)
     - [Navasari](city)
     - [Mumbai](city)
+    - [Thane](city)
+    - city is [Surat](city)
+    - i'm from [Surat](city) city
+    - city is [Godhara](city)
+    - i'm from [Godhara](city) city
+    - city is [Ahmedabad](city)
+    - i'm from [Ahmedabad](city) city
+    - city is [Navasari](city)
+    - i'm from [Navasari](city) city
+    - city is [Mumbai](city)
+    - i'm from [Mumbai](city) city
     - [Thane](city)
     - [Surat](city)
 
 - intent: get_mobile_no
   examples: |
     - [6355312073](mobile_no)
+    - mobile number is [6355312073](mobile_no)
+    - mobile number [6355312073](mobile_no)
+    - my mobile number is [6355312073](mobile_no)
+    - [6355312073](mobile_no) is my mobile number
     - [8732937702](mobile_no)
+    - mobile number is [8732937702](mobile_no)
+    - mobile number [8732937702](mobile_no)
+    - my mobile number is [8732937702](mobile_no)
+    - [8732937702](mobile_no) is my mobile number
     - [6355312073](mobile_no) 
+    - mobile number is [6355312073](mobile_no) 
+    - mobile number [6355312073](mobile_no) 
+    - my mobile number is [6355312073](mobile_no) 
+    - [6355312073](mobile_no)  is my mobile number
   
 
 # for form cancellation ..................#################################

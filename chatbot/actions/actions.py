@@ -133,11 +133,12 @@ class ValidateAppForm(FormValidationAction):
     ) -> Dict[Text, Any]:
         """Validate `name` value."""
 
-        if slot_value.lower() not in names:
+        if slot_value is None:
             dispatcher.utter_message(
-                text=f"We only accept name: gaurav/vraj/.rasa.")
+                text=f"Enter name again")
             return {"name": None}
-        dispatcher.utter_message(text=f"OK! You want to have a {slot_value}.")
+        dispatcher.utter_message(
+            text=f"OK! Your entered name is {slot_value}.")
         return {"name": slot_value}
 
     def validate_age(
@@ -149,9 +150,9 @@ class ValidateAppForm(FormValidationAction):
     ) -> Dict[Text, Any]:
         """Validate `age` value."""
 
-        if int(slot_value) <= 0 and int(slot_value) > 150:
+        if int(slot_value) <= 5 and int(slot_value) > 100:
             dispatcher.utter_message(
-                text=f"The entered age should be greater than 0 and less than equal to 150.")
+                text="Your age must be in between 5 and 100 !")
             return {"age": None}
         dispatcher.utter_message(text=f"OK! Your entered age is {slot_value}.")
         return {"age": slot_value}
@@ -182,9 +183,9 @@ class ValidateAppForm(FormValidationAction):
     ) -> Dict[Text, Any]:
         """Validate `city` value."""
 
-        if slot_value.lower() not in CITIES:
+        if slot_value is None:
             dispatcher.utter_message(
-                text=f"{slot_value} is not come in our range ." + "/".join(CITIES))
+                text="Please Enter City name again")
             return {"city": None}
         dispatcher.utter_message(text=f"Your entered city is {slot_value}.")
         return {"city": slot_value}
@@ -200,10 +201,33 @@ class ValidateAppForm(FormValidationAction):
 
         dispatcher.utter_message(
             text=f"Your entered Email ID is {slot_value}.")
-        return {"email": slot_value}
+        # otp = sendMail(slot_value)
+        otp = "123456"
+        print(slot_value,otp)
+        return {"email": slot_value, "sentOTP": otp}
 
+    def validate_otp(
+        self,
+        slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        """Validate `otp` value."""
+
+        sentOTP = tracker.get_slot("sentOTP")
+
+        if slot_value != sentOTP:
+            dispatcher.utter_message(
+                text=f"Inavlid OTP Entered, Plz enter the valid OTP 😤!")
+            return {"otp": None}
+        else:
+            dispatcher.utter_message(text=f"OTP Validation Successfull 🫡 !")
+            return {"otp": slot_value}
 
 #  for cancelation of form ..
+
+
 class ValidateCancelForm(FormValidationAction):
 
     def name(self) -> Text:
@@ -230,7 +254,8 @@ class ValidateCancelForm(FormValidationAction):
             return {"aid": slot_value, "requested_slot": None}
         else:
             email = dt["email"]
-            otp = sendMail(email)
+            # otp = sendMail(email)
+            otp="123457"
             print(otp)
             dispatcher.utter_message(
                 text=f"Yes Valid Appointment ID. and OTP is send to your registered email "+email)

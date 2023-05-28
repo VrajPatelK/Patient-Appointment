@@ -43,9 +43,11 @@ stories:
   - slot_was_set:
     - requested_slot: mobile_no
   - slot_was_set:
+    - requested_slot: city
+  - slot_was_set:
     - requested_slot: email
   - slot_was_set:
-    - requested_slot: city
+    - requested_slot: otp
   - intent: stop
   - action: utter_ask_continue
   - intent: affirm

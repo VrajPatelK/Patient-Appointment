@@ -94,8 +94,7 @@ slots:
     mappings:
     - type: from_entity
       entity: otp
-      conditions:
-      - active_loop: cancel_form
+
   sentOTP:
     type: text
     influence_conversation: true
@@ -111,6 +110,8 @@ forms:
     - mobile_no
     - email
     - city
+    - otp
+
 
   cancel_form:
     required_slots:
@@ -120,7 +121,7 @@ forms:
 
 responses:
   utter_greet:
-  - text: "Hey! How are you?"
+  - text: "Hey! How can i help you, Today?"
 
   utter_remember:
   - text: "form is filled up"

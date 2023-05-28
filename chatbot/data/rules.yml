@@ -21,6 +21,7 @@ rules:
   - slot_was_set:
     - requested_slot: null
   - action: action_get_form_details
+  
 
 #  logic for activating form for cancelation.
 
