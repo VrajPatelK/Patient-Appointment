@@ -23,8 +23,8 @@ from rasa_sdk.events import SlotSet
 from actions.sendMailFunction import sendMail
 
 # mongodb+srv://gauravteli:gauravteli@cluster0.iykzyey.mongodb.net/?retryWrites=true&w=majority
-# DB_URL = "mongodb://localhost:27017"
-DB_URL = "mongodb+srv://gauravteli:gauravteli@cluster0.iykzyey.mongodb.net/?retryWrites=true&w=majority"
+DB_URL = "mongodb://localhost:27017"
+# DB_URL = "mongodb+srv://gauravteli:gauravteli@cluster0.iykzyey.mongodb.net/?retryWrites=true&w=majority"
 
 # adding not adding the security by Secure Socket Layer
 client = MongoClient(DB_URL, ssl_cert_reqs=ssl.CERT_NONE)
@@ -76,7 +76,7 @@ def generate_unique_id():
     unique_id = f"{digit_part}_{char_part}"
     return unique_id
 
-
+from actions.uniqueId import unique_aid
 # printing got appointment
 class ActionHelloWorld(Action):
 
@@ -92,7 +92,7 @@ class ActionHelloWorld(Action):
         mobile_no = tracker.get_slot("mobile_no")
         city = tracker.get_slot("city")
         email = tracker.get_slot("email")
-        aid = generate_unique_id()
+        aid = unique_aid()
         print(aid)
         doc = {
             "_id": aid,
@@ -106,7 +106,7 @@ class ActionHelloWorld(Action):
         }
         appointment.insert_one(doc)
         dispatcher.utter_message(
-            f"Hello {name} you appointment ID is {aid} Remember you appointment ID !")
+            f"Hello {name} your appointment ID is {aid}. Remember your appointment ID for future reference !")
         # reset all the slots .........
         slots = [
             SlotSet("name", None),
@@ -114,6 +114,8 @@ class ActionHelloWorld(Action):
             SlotSet("mobile_no", None),
             SlotSet("city", None),
             SlotSet("email", None),
+            SlotSet("otp", None),
+            SlotSet("sentOTP", None),
         ]
         return slots
 

@@ -12,7 +12,7 @@ nlu:
 
 - regex: aid
   examples: |
-    - \b\d{5}_[a-zA-Z]{5}\b
+    - \b{HOS_AID_}d{12}\b
 
 - intent: call_me
   examples: |
@@ -178,33 +178,12 @@ nlu:
 
 - intent: get_AID
   examples: |
-    - my appointment ID is [12345_ABCDE](aid)
-    - [12345_ABCDE](aid)
-    - I want to cancel my appointment with ID [12345_ABCDE](aid)
-    - Please cancel my appointment. The ID is [67890_XYZAB](aid)
-    - Can you assist me in canceling my appointment? The ID is [98765_QWERT](aid)
-    - I need to cancel my appointment with ID [54321_UIOJK](aid)
-    - My appointment ID is [24680_ZXCVB](aid), and I want to cancel it.
-    - I want to cancel my appointment with ID [13579_POIUY](aid). Can you help?
-    - Help me cancel my appointment. The ID is [86420_MNBVC](aid).
-    - Can you please cancel my appointment with ID [97531_YTREW](aid)?
-    - I need to cancel my appointment with ID [24680_KLJHG](aid). Please assist.
-    - I want to cancel my appointment. The ID is [64257_QWERT](aid)
-    - Please cancel my appointment with ID [12345_ASDER](aid)
-    - I need to cancel my appointment with ID [56789_POIUY](aid). Can you help me?
-    - Help me cancel my appointment. The ID is [98765_LKJHG](aid).
-    - Can you assist me in canceling my appointment with ID [24680_ZXCVB](aid)?
-    - I want to cancel my appointment with ID [54321_UIJKL](aid). Please help me.
-    - Please cancel my appointment. The ID is [13579_QWERT](aid).
-    - I need to cancel my appointment with ID [86420_ASDER](aid). Can you assist?
-    - Can you please cancel my appointment with ID [97531_KLJHG](aid)?
-    - I want to cancel my appointment with ID [24680_YTREW](aid). Help me with that.
-    - Please cancel my appointment. The ID is [64257_MNBVC](aid).
-    - I need to cancel my appointment with ID [12345_UIOJK](aid). Can you assist me?
-    - Help me cancel my appointment. The ID is [56789_ZXCVB](aid).
-    - Can you please cancel my appointment with ID [24680_POIUY](aid)?
-    - I want to cancel my appointment with ID [98765_ASDER](aid). Please assist me.
-    - Please cancel my appointment. The ID is [54321_LKJHG](aid).
+    - my appointment ID is [HOS_AID_147852369852](aid)
+    - [HOS_AID_147852369552](aid) is my aid
+    - I want to cancel my appointment with ID [HOS_AID_147852369857](aid)
+    - Please cancel my appointment. The ID is [HOS_AID_147852369854](aid)
+    - Can you assist me in canceling my appointment? The ID is [HOS_AID_147852789854](aid)
+    - I need to cancel my appointment with ID [HOS_AID_789852369854](aid)
 
 - regex: otp
   examples: |
