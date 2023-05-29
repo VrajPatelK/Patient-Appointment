@@ -23,8 +23,8 @@ from rasa_sdk.events import SlotSet
 from actions.sendMailFunction import sendMail
 
 # mongodb+srv://gauravteli:gauravteli@cluster0.iykzyey.mongodb.net/?retryWrites=true&w=majority
-DB_URL = "mongodb://localhost:27017"
-# DB_URL = "mongodb+srv://gauravteli:gauravteli@cluster0.iykzyey.mongodb.net/?retryWrites=true&w=majority"
+# DB_URL = "mongodb://localhost:27017"
+DB_URL = "mongodb+srv://gauravteli:gauravteli@cluster0.iykzyey.mongodb.net/?retryWrites=true&w=majority"
 
 # adding not adding the security by Secure Socket Layer
 client = MongoClient(DB_URL, ssl_cert_reqs=ssl.CERT_NONE)
@@ -203,8 +203,8 @@ class ValidateAppForm(FormValidationAction):
 
         dispatcher.utter_message(
             text=f"Your entered Email ID is {slot_value}.")
-        # otp = sendMail(slot_value)
-        otp = "123456"
+        otp = sendMail(slot_value)
+        # otp = "123456"
         print(slot_value,otp)
         return {"email": slot_value, "sentOTP": otp}
 
@@ -256,8 +256,8 @@ class ValidateCancelForm(FormValidationAction):
             return {"aid": slot_value, "requested_slot": None}
         else:
             email = dt["email"]
-            # otp = sendMail(email)
-            otp="123457"
+            otp = sendMail(email)
+            # otp="123457"
             print(otp)
             dispatcher.utter_message(
                 text=f"Yes Valid Appointment ID. and OTP is send to your registered email "+email)
