@@ -7,6 +7,7 @@
 
 # This is a simple example for a custom action which utters "Hello World!"
 
+from actions.uniqueId import unique_aid
 import datetime
 import time
 import string
@@ -70,14 +71,16 @@ CITIES = [
 
 
 # generating a unique Appointment Id ->
-def generate_unique_id():
-    digit_part = ''.join(secrets.choice(string.digits) for _ in range(5))
-    char_part = ''.join(secrets.choice(string.ascii_letters) for _ in range(5))
-    unique_id = f"{digit_part}_{char_part}"
-    return unique_id
+# def generate_unique_id():
+#     digit_part = ''.join(secrets.choice(string.digits) for _ in range(5))
+#     char_part = ''.join(secrets.choice(string.ascii_letters) for _ in range(5))
+#     unique_id = f"{digit_part}_{char_part}"
+#     return unique_id
 
-from actions.uniqueId import unique_aid
+
 # printing got appointment
+
+
 class ActionHelloWorld(Action):
 
     def name(self) -> Text:
@@ -135,13 +138,26 @@ class ValidateAppForm(FormValidationAction):
     ) -> Dict[Text, Any]:
         """Validate `name` value."""
 
-        if slot_value is None:
+        entities = tracker.latest_message.get("entities",[])
+        person = ""
+        for entity in entities:
+            if entity["entity"] == "PERSON":
+                person = entity["value"]
+            elif entity["entity"] == "ORG":
+                person = entity["value"]
+            elif entity["entity"] == "GPE":
+                person = entity["value"]
+            elif entity["entity"] == "name":
+                person = entity["value"]
+
+        if person is None:
             dispatcher.utter_message(
-                text=f"Enter name again")
+                text=f"Name is not recognized by the me ,Plz enter it  again !")
             return {"name": None}
+        
         dispatcher.utter_message(
             text=f"OK! Your entered name is {slot_value}.")
-        return {"name": slot_value}
+        return {"name": person}
 
     def validate_age(
         self,
@@ -205,7 +221,7 @@ class ValidateAppForm(FormValidationAction):
             text=f"Your entered Email ID is {slot_value}.")
         otp = sendMail(slot_value)
         # otp = "123456"
-        print(slot_value,otp)
+        print(slot_value, otp)
         return {"email": slot_value, "sentOTP": otp}
 
     def validate_otp(
@@ -321,53 +337,54 @@ class ResultForCancel(Action):
 
 #  for status check form ..
 
-# class ValidateStatusForm(FormValidationAction):
+class ValidateStatusForm(FormValidationAction):
 
-#     def name(self) -> Text:
-#         return "validate_status_form"
+    def name(self) -> Text:
+        return "validate_status_form"
 
-#     def validate_aid(
-#         self,
-#         slot_value: Any,
-#         dispatcher: CollectingDispatcher,
-#         tracker: Tracker,
-#         domain: DomainDict,
-#     ) -> Dict[Text, Any]:
-#         """Validate `aid` value."""
+    def validate_checkaid(
+        self,
+        slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        """Validate `checkaid` value."""
+
+        print(slot_value)
+
+        # call API and  Print all the info about the Patient.
+        dt = appointment.find_one({"_id": slot_value})
+        if dt == None:
+            dispatcher.utter_message(
+                text=f"{slot_value} Invalid Appointment ID . or you have not booked the appointment !")
+            return {"checkaid": None}
+        else:
+            email = dt["email"]
+            dispatcher.utter_message(text=f"Yes Valid Appointment ID. and your email is {email}")
+            return {"checkaid": slot_value}
+
+class ResultForStatus(Action):
+
+    def name(self) -> Text:
+        return "action_status_information"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
 
-#         # call API and  Print all the info about the Patient.
-#         dt = appointment.find_one({"_id": slot_value})
-#         if dt == None:
-#             dispatcher.utter_message(
-#                 text=f"{slot_value} Invalid Appointment ID . or you have not booked the appointment !")
-#             return {"aid": None}
-#         else:
-#             email = dt["email"]
-#             dispatcher.utter_message(text=f"Yes Valid Appointment ID. and your email is {email}")
-#             return {"aid": slot_value}
+        aid = tracker.get_slot("checkaid")
+        print(aid)
+        dt = appointment.find_one({"_id": aid})
+        email = dt["email"]
+        name = dt["name"]
+        status = dt["status"]
+        aid = dt["_id"]
+        dispatcher.utter_message(f"aid: {aid} ,name: {name} ,email: {email}, status: {status}")
 
-# class ResultForStatus(Action):
-
-#     def name(self) -> Text:
-#         return "action_status_information"
-
-#     def run(self, dispatcher: CollectingDispatcher,
-#             tracker: Tracker,
-#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
-
-#         aid = tracker.get_slot("aid")
-#         print(aid)
-#         dt = appointment.find_one({"_id": aid})
-#         email = dt["email"]
-#         name = dt["name"]
-#         status = dt["status"]
-#         aid = dt["_id"]
-#         dispatcher.utter_message(f"aid: {aid} ,name: {name} ,email: {email}, status: {status}")
-
-#         # reset all the slots .........
-#         slots = [
-#             SlotSet("aid", None)
-#         ]
-#         return slots
+        # reset all the slots .........
+        slots = [
+            SlotSet("checkaid", None)
+        ]
+        return slots

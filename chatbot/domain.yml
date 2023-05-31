@@ -16,6 +16,7 @@ intents:
   - get_AID
   - get_email
   - wr_otp
+  - call_check_appointment_form 
 
 
 entities:
@@ -33,6 +34,8 @@ actions:
   - validate_app_form
   - validate_cancel_form
   - action_successfull_cancel
+  - validate_status_form
+  - action_status_information
 
 slots:
 
@@ -78,6 +81,14 @@ slots:
       entity: city
       conditions:
       - active_loop: app_form
+  checkaid:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: aid
+      conditions:
+      - active_loop: status_form
 
 # form cancel slots .
   aid:
@@ -117,6 +128,10 @@ forms:
     required_slots:
     - aid
     - otp
+
+  status_form:
+    required_slots:
+    - checkaid
 
 
 responses:
@@ -162,6 +177,9 @@ responses:
 
   utter_ask_aid: 
   - text: "Enter the Appointment ID ?"
+
+  utter_ask_checkaid: 
+  - text: "Enter the CHECK Appointment ID ?"
 
   utter_ask_otp: 
   - text: "Enter the 6-digit otp that has been received on your registered Email Id ?"

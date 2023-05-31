@@ -42,12 +42,23 @@ rules:
     - requested_slot: null
   - action: action_successfull_cancel
 
+# logic for activation of status form
+- rule: Activate Form For Status Check
+  steps:
+  - intent: call_check_appointment_form
+  - action: status_form
+  - active_loop: status_form
 
 
-
-
-
-
+- rule: Submit Form For Status Check
+  condition:
+  - active_loop: status_form
+  steps:
+  - action: status_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_status_information
 
 - rule: Say goodbye anytime the user says goodbye
   steps:
@@ -60,20 +71,3 @@ rules:
   - action: utter_iamabot
 
 
-# logic for activation of status form
-# - rule: Activate Form For Status Check
-#   steps:
-#   - intent: call_check_appointment_form
-#   - action: status_form
-#   - active_loop: status_form
-
-
-# - rule: Submit Form For Status Check
-#   condition:
-#   - active_loop: status_form
-#   steps:
-#   - action: status_form
-#   - active_loop: null
-#   - slot_was_set:
-#     - requested_slot: null
-#   - action: action_status_information
