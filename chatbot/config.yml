@@ -5,6 +5,7 @@ pipeline:
     model: en_core_web_sm
   - name: SpacyTokenizer
   - name: SpacyEntityExtractor
+    dimensions: ["name"]
   - name: SpacyFeaturizer
   # - name: WhitespaceTokenizer
   - name: RegexFeaturizer
