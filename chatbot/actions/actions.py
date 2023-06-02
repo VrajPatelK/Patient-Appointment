@@ -203,8 +203,8 @@ class ValidateAppForm(FormValidationAction):
 
         dispatcher.utter_message(
             text=f"Your entered Email ID is {slot_value}.")
-        otp = sendMail(slot_value)
-        # otp = "123456"
+        # otp = sendMail(slot_value)
+        otp = "123456"
         print(slot_value,otp)
         return {"email": slot_value, "sentOTP": otp}
 

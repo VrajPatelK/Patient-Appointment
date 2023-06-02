@@ -34,35 +34,167 @@ nlu:
 
 - intent: inform
   examples: |
-    - my name is [gaurav](name)
-    - my name is [vraj](name)
-    - my name is [dhruv](name)
-    - my name is [jittam](name)
-    - my name is [aksh](name)
-    - my name is [gaurav](name)
-    - my name is [vraj](name)
-    - my name is [geeta](name)
-    - my name is [mita](name)
-    - my name is [amita](name)
-    - my name is [smita](name)
-    - [geeta](name) is my name
-    - [mita](name) is my name
-    - [amita](name) is my name
-    - [smita](name) is my name
-    - [gaurav](name)
-    - [vraj](name)
-    - [dhruv](name)
-    - [gaurav](name) is my name
-    - name is [dhruv](name)
-    - name is [gaurav](name)
-    - name is [vraj](name)
-    - [gaurav](name)
-    - [vraj](name)
-    - [dhruv](name)
-    - [gaurav](name) is my name
-    - name is [vraj](name)
-    - name is [dhruv](name)
-    - name is [gaurav](name)
+    - My name is [Ravi Kumar](name).
+    - Hi, I'm [Rajesh Sharma](name).
+    - This is [Deepika](name).
+    - I am [Aarav Singhania](name).
+    - Hello, I am [Neha Kapoor](name).
+    - My name's [Arjun Verma](name).
+    - I go by the name [Siddharth Gupta](name).
+    - You can call me [Sneha Tiwari](name).
+    - Greetings, I am [Ananya Mishra](name).
+    - I'm [Harish Choudhary](name).
+    - My full name is [Aditi Patel](name).
+    - People call me [Varun Khanna](name).
+    - Hi there, I'm [Rohit Malhotra](name).
+    - This is [Sonali Deshmukh](name).
+    - I am [Vikram Shah](name).
+    - You can refer to me as [Pooja Patel](name).
+    - My name is [Rahul Joshi](name).
+    - Please address me as [Aishwarya Singh](name).
+    - Hello, I am [Sanjay Sharma](name).
+    - I'm [Sumanth Reddy](name).
+    - My name is [Shalini Kapoor](name).
+    - You can call me [Raghav Gupta](name).
+    - Hi, I'm [Anushka Desai](name).
+    - This is [Arnav Saxena](name).
+    - I am [Sneha Chopra](name).
+    - Hello, I am [Sameer Shah](name).
+    - I go by the name [Meera Patel](name).
+    - Greetings, I'm [Akash Verma](name).
+    - My full name is [Nisha Bhatia](name).
+    - People call me [Karan Malhotra](name).
+    - Hi there, I'm [Swati Deshmukh](name).
+    - This is [Abhishek Srinivasan](name).
+    - I am [Priya Sharma](name).
+    - You can refer to me as [Pranav Patel](name).
+    - Good day! My name is [Pooja Menon](name).
+    - Please address me as [Aryan Singh](name).
+    - Hello, I am [Maya Kapoor](name).
+    - I'm [Anand Gupta](name).
+    - My name is [Shreya Shah](name).
+    - Hi, I'm [Natasha Sharma](name).
+    - This is [Kunal Mehta](name) speaking.
+    - I am [Natasha Kapoor](name).
+    - Hello, I am [Suraj Khan](name).
+    - My name's [Riya Patel](name).
+    - I go by the name [Sameer Gupta](name).
+    - You can call me [Aashi Tiwari](name).
+    - Greetings, I am [Arnav Mishra](name).
+    - I'm [Ritu Choudhary](name).
+    - My full name is [Prashant Patel](name).
+    - People call me [Anushka Khanna](name).
+    - I'm [Aditya Malhotra](name).
+    - This is [Kavya Desai](name).
+    - I am [Akash Chopra](name).
+    - You can refer to me as [Neha Singh](name).
+    - Good day! My name is [Rajeev Joshi](name).
+    - Please address me as [Ishita Singh](name).
+    - Hello, I am [Ankit Sharma](name).
+    - I'm [Priyanka Reddy](name).
+    - My name is [Kriti Kapoor](name).
+    - I'm [Ananya Gupta](name).
+    - This is [Virat Mehta](name) speaking.
+    - I am [Natasha Kapoor](name).
+    - I am [Suraj Khan](name).
+    - My name's [Riya Patel](name).
+    - I go by the name [Sameer Gupta](name).
+    - You can call me [Aashi Tiwari](name).
+    - Greetings, I am [Arnav Mishra](name).
+    - I'm [Ritu Choudhary](name).
+    - My full name is [Prashant Patel](name).
+    - People call me [Anushka Khanna](name).
+    - Hi there, I'm [Aditya Malhotra](name).
+    - This is [Kavya Desai](name).
+    - I am [Akash Chopra](name).
+    - You can refer to me as [Neha Singh](name).
+    - Good day! My name is [Rajeev Joshi](name).
+    - Please address me as [Ishita Singh](name).
+    - Hello, I am [Ankit Sharma](name).
+    - I'm [Priyanka Reddy](name).
+    - My name is [Kriti Kapoor](name).
+    - Can you please assist me, [Suresh Reddy](name)?
+    - Hi, I'm [Ananya Gupta](name).
+    - This is [Virat Mehta](name) speaking.
+    - This is [Reddy Abhishek](name) Srinivasan.
+    - I am [Priya shah](name) Sharma.
+    - You can refer to me as [Pranav patel](name) Patel.
+    - Good day! My name is [Pooja Patel](name) Menon.
+    - Please address me as [Aryan Patel](name) Singh.
+    - Hello, I am [Maya Kapoor](name) .
+    - I'm [Anand Gupta](name).
+    - My name is [Shreya Shah](name).
+    - I'm [Natasha Sharma](name).
+    - This is [Kunal Mehta](name).
+    - I am [Anjali Kapoor](name).
+    - Hello, I am [Armaan Khan](name).
+    - My name's [Suhana Patel](name).
+    - I go by the name [Abhinav Gupta](name).
+    - You can call me [Riya Tiwari](name).
+    - Greetings, I am [Rohan Mishra](name).
+    - I'm [Shivani Choudhary](name).
+    - My full name is [Vishal Patel](name).
+    - People call me [Naina Khanna](name).
+    - Hi there, I'm [Yash Malhotra](name).
+    - This is [Shweta Deshmukh](name).
+    - I am [Aditya Shah](name).
+    - You can refer to me as [Tara Patel](name).
+    - Good day! My name is [Rajeev Joshi](name).
+    - Please address me as [Ishita Singh](name).
+    - Hello, I am [Ankit Sharma](name).
+    - I'm [Priyanka Reddy](name).
+    - My name is [Kriti Kapoor](name).
+    - [Ankit Sharma](name) is My name.
+    - [Kriti Kapoor](name) is My name.
+    - I'm [Ananya Gupta](name).
+    - This is [Virat Mehta](name).
+    - I am [Natasha Kapoor](name).
+    - Hello, I am [Suraj Khan](name).
+    - My name's [Riya Patel](name).
+    - I go by the name [Sameer Gupta](name).
+    - You can call me [Aashi Tiwari](name).
+    - Greetings, I am [Arnav Mishra](name).
+    - I'm [Ritu Choudhary](name).
+    - My full name is [Prashant Patel](name).
+    - People call me [Khanna Anushka](name).
+    - Hi there, I'm [Malhotra Aditya](name) .
+    - my name is [teli gaurav](name).
+    - my name is [gaurav teli](name).
+    - my name is [vraj patel](name).
+    - my name is [patel vraj](name).
+    - my name is [patel dhruv](name).
+    - my name is [dhruv patel](name).
+    - my name is [jittam shakhia](name).
+    - my name is [aksh talati](name).
+    - my name is [geeta Khanna](name).
+    - my name is [shah mita](name).
+    - my name is [amita shah](name).
+    - my name is [smita Khanna](name).
+    - [teli gaurav](name) is my name.
+    - [gaurav teli](name) is my name.
+    - [vraj patel](name) is my name.
+    - [patel vraj](name) is my name.
+    - [patel dhruv](name) is my name.
+    - [dhruv patel](name) is my name.
+    - [jittam shakhia](name) is my name.
+    - [aksh talati](name) is my name.
+    - [geeta Khanna](name) is my name.
+    - [shah mita](name) is my name.
+    - [amita shah](name) is my name.
+    - [smita Khanna](name) is my name.
+    - [Malhotra geeta](name) is my name
+    - [mita Malhotra](name) is my name
+    - [amita shah](name) is my name
+    - [smita shakhia](name) is my name
+    - [gaurav Patel](name) is my name
+    - name is [dhruv Shah](name)
+    - name is [shakhia gaurav](name)
+    - name is [vraj shakhia](name)
+    - [gaurav patel](name) is my name
+    - name is [vraj talati](name)
+    - name is [dhruv sharma](name)
+    - name is [gaurav teli](name)
+    - [gaurav teli](name) is My name
     - [21](age)
     - [20](age)
     - [50](age)
@@ -184,6 +316,27 @@ nlu:
     - Please cancel my appointment. The ID is [HOS_AID_147852369854](aid)
     - Can you assist me in canceling my appointment? The ID is [HOS_AID_147852789854](aid)
     - I need to cancel my appointment with ID [HOS_AID_789852369854](aid)
+    - My appointment ID is [HOS_AID_789852369858](aid), and I want to cancel it.
+    - I want to cancel my appointment with ID [HOS_AID_789852459858](aid). Can you help?
+    - Help me cancel my appointment. The ID is [HOS_AID_78987869858](aid).
+    - Can you please cancel my appointment with ID [HOS_AID_782652369858](aid)?
+    - I need to cancel my appointment with ID [HOS_AID_789852269858](aid). Please assist.
+    - I want to cancel my appointment. The ID is [HOS_AID_796852369858](aid)
+    - Please cancel my appointment with ID [HOS_AID_789852639858](aid)
+    - I need to cancel my appointment with ID [HOS_AID_789852397858](aid). Can you help me?
+    - Help me cancel my appointment. The ID is [HOS_AID_789852639858](aid).
+    - Can you assist me in canceling my appointment with ID [HOS_AID_789152369858](aid)?
+    - I want to cancel my appointment with ID [HOS_AID_789850369858](aid). Please help me.
+    - Please cancel my appointment. The ID is [HOS_AID_789802369858](aid).
+    - I need to cancel my appointment with ID [HOS_AID_789852360858](aid). Can you assist?
+    - Can you please cancel my appointment with ID [HOS_AID_789802369858](aid)?
+    - I want to cancel my appointment with ID [HOS_AID_789802369858](aid). Help me with that.
+    - Please cancel my appointment. The ID is [HOS_AID_789808369858](aid).
+    - I need to cancel my appointment with ID [HOS_AID_789852369858](aid). Can you assist me?
+    - Help me cancel my appointment. The ID is [HOS_AID_789859369858](aid).
+    - Can you please cancel my appointment with ID [HOS_AID_783852369858](aid)?
+    - I want to cancel my appointment with ID [HOS_AID_789852369858](aid). Please assist me.
+    - Please cancel my appointment. The ID is [HOS_AID_789852319858](aid).
 
 - regex: otp
   examples: |

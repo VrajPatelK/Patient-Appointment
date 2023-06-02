@@ -27,6 +27,12 @@ entities:
   - aid
   - sentOTP
   - otp
+  - correct_name
+  - GPE
+  - PERSON
+  - DATE
+  - CARDINAL
+  - ORG
 
 actions:
   - action_get_form_details
@@ -46,6 +52,12 @@ slots:
       entity: name
       conditions:
       - active_loop: app_form
+  correct_name:
+    type: rasa.shared.core.slots.BooleanSlot
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: correct_name
   age:
     type: text
     influence_conversation: true
