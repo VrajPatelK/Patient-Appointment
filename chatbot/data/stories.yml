@@ -2,13 +2,6 @@ version: "3.1"
 
 stories:
 
-- story: Flow for Status Check
-  steps:
-  - intent: call_check_appointment_form
-  - action: status_form
-  - active_loop: status_form
-  - slot_was_set:
-    - requested_slot: checkaid
 
 - story: happy path
   steps:
@@ -56,10 +49,6 @@ stories:
     - requested_slot: email
   - slot_was_set:
     - requested_slot: otp
-  - intent: stop
-  - action: utter_ask_continue
-  - intent: affirm
-  - action: action_deactivate_loop
 
 - story: Flow for Canceling Appointment 
   steps:
@@ -72,12 +61,27 @@ stories:
     - requested_slot: aid
   - slot_was_set:
     - requested_slot: otp
-  - intent: stop
-  - action: utter_ask_continue
-  - intent: affirm
-  - action: action_deactivate_loop
 
+- story: Flow for Status Check
+  steps:
+  - intent: call_check_appointment_form
+  - action: status_form
+  - active_loop: status_form
+  - slot_was_set:
+    - requested_slot: checkaid
 
+# - story: Stop the form .....
+#   steps:
+#   - intent: stop
+#   - action: utter_ask_continue
+#   - intent: affirm
+#   - action: action_deactivate_loop
+
+# - story: Stop the form .....
+#   steps:
+#   - intent: stop
+#   - action: utter_ask_continue
+#   - intent: deny
 
 
 

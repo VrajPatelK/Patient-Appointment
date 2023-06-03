@@ -26,9 +26,12 @@ nlu:
   - intent: stop
     examples: |
       - stop
-      - nevermind
       - please stop
       - i want to stop
+      - stop the form
+      - don`t wnat to fill the form
+      - i am not interested in filling form
+      - i did not want to fill the form
       - stop the form
 
   - intent: inform
@@ -581,31 +584,8 @@ nlu:
     examples: |
       - my appointment ID is [HOS_AID_147852369852](aid)
       - [HOS_AID_147852369552](aid) is my aid
-      - I want to cancel my appointment with ID [HOS_AID_147852369857](aid)
-      - Please cancel my appointment. The ID is [HOS_AID_147852369854](aid)
-      - Can you assist me in canceling my appointment? The ID is [HOS_AID_147852789854](aid)
-      - I need to cancel my appointment with ID [HOS_AID_789852369854](aid)
-      - My appointment ID is [HOS_AID_789852369858](aid), and I want to cancel it.
-      - I want to cancel my appointment with ID [HOS_AID_789852459858](aid). Can you help?
-      - Help me cancel my appointment. The ID is [HOS_AID_78987869858](aid).
-      - Can you please cancel my appointment with ID [HOS_AID_782652369858](aid)?
-      - I need to cancel my appointment with ID [HOS_AID_789852269858](aid). Please assist.
-      - I want to cancel my appointment. The ID is [HOS_AID_796852369858](aid)
-      - Please cancel my appointment with ID [HOS_AID_789852639858](aid)
-      - I need to cancel my appointment with ID [HOS_AID_789852397858](aid). Can you help me?
-      - Help me cancel my appointment. The ID is [HOS_AID_789852639858](aid).
-      - Can you assist me in canceling my appointment with ID [HOS_AID_789152369858](aid)?
-      - I want to cancel my appointment with ID [HOS_AID_789850369858](aid). Please help me.
-      - Please cancel my appointment. The ID is [HOS_AID_789802369858](aid).
-      - I need to cancel my appointment with ID [HOS_AID_789852360858](aid). Can you assist?
-      - Can you please cancel my appointment with ID [HOS_AID_789802369858](aid)?
-      - I want to cancel my appointment with ID [HOS_AID_789802369858](aid). Help me with that.
-      - Please cancel my appointment. The ID is [HOS_AID_789808369858](aid).
-      - I need to cancel my appointment with ID [HOS_AID_789852369858](aid). Can you assist me?
-      - Help me cancel my appointment. The ID is [HOS_AID_789859369858](aid).
-      - Can you please cancel my appointment with ID [HOS_AID_783852369858](aid)?
-      - I want to cancel my appointment with ID [HOS_AID_789852369858](aid). Please assist me.
-      - Please cancel my appointment. The ID is [HOS_AID_789852319858](aid).
+      - here is my appointment ID [HOS_AID_147852369552](aid)
+      - [HOS_AID_147852369552](aid)
 
   - regex: otp
     examples: |
@@ -724,21 +704,21 @@ nlu:
       - am I talking to a human?
 
 # form status Check changes done by me
-- intent: call_check_appointment_form
-  examples: |
-    - i want to check my appointment status
-    - check status
-    - Can you please provide the status of my appointment?
-    - I would like to know the current status of my appointment.
-    - What is the status of my appointment?
-    - Could you tell me if my appointment has been confirmed?
-    - Has there been any update on the status of my appointment?
-    - Is my appointment still scheduled for [date/time]?
-    - Can you check if my appointment is still on the schedule?
-    - I'm wondering if my appointment status has changed.
-    - Has there been any change in the status of my appointment?
-    - Can you verify whether my appointment is still active?
-    - check the status for the [HOS_AID_310523123146](aid) appointment
+  - intent: call_check_appointment_form
+    examples: |
+      - i want to check my appointment status
+      - check status
+      - Can you please provide the status of my appointment?
+      - I would like to know the current status of my appointment.
+      - What is the status of my appointment?
+      - Could you tell me if my appointment has been confirmed?
+      - Has there been any update on the status of my appointment?
+      - Is my appointment still scheduled for [date/time]?
+      - Can you check if my appointment is still on the schedule?
+      - I'm wondering if my appointment status has changed.
+      - Has there been any change in the status of my appointment?
+      - Can you verify whether my appointment is still active?
+      - check the status for the [HOS_AID_310523123146](aid) appointment
 
 
 

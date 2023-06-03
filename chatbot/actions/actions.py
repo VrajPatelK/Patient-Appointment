@@ -20,7 +20,7 @@ from rasa_sdk.events import EventType
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.types import DomainDict
 from typing import Text, List, Any, Dict
-from rasa_sdk.events import SlotSet
+from rasa_sdk.events import SlotSet, Form
 from actions.sendMailFunction import sendMail
 
 # mongodb+srv://gauravteli:gauravteli@cluster0.iykzyey.mongodb.net/?retryWrites=true&w=majority
@@ -80,6 +80,16 @@ CITIES = [
 
 # printing got appointment
 
+
+# class ActionDeactivateForm(Action):
+#     def name(self) -> Text:
+#         return "action_deactivate_form"
+
+#     def run(self, dispatcher: CollectingDispatcher,
+#             tracker: Tracker,
+#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+#         return [SlotSet("requested_slot", None), Form(None)]
 
 class ActionHelloWorld(Action):
 
