@@ -41,4 +41,4 @@ def sendMail(recipient_email):
     print("Sending...")
     send_email(sender_email, sender_password, recipient_email, subject, message)
     return otp
-sendMail("dhruv20345@gmail.com")
+# sendMail("dhruv20345@gmail.com")
