@@ -9,32 +9,14 @@
 
 from actions.uniqueId import unique_aid
 import datetime
-import time
-import string
-import secrets
-import certifi
-import ssl
-from pymongo import MongoClient
 from rasa_sdk import Tracker, FormValidationAction, Action
 from rasa_sdk.events import EventType
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.types import DomainDict
 from typing import Text, List, Any, Dict
-from rasa_sdk.events import SlotSet, Form
-from actions.sendMailFunction import sendMail
-
-# mongodb+srv://gauravteli:gauravteli@cluster0.iykzyey.mongodb.net/?retryWrites=true&w=majority
-# DB_URL = "mongodb://localhost:27017"
-DB_URL = "mongodb+srv://gauravteli:gauravteli@cluster0.iykzyey.mongodb.net/?retryWrites=true&w=majority"
-
-# adding not adding the security by Secure Socket Layer
-client = MongoClient(DB_URL, ssl_cert_reqs=ssl.CERT_NONE)
-
-print("connected successfully")
-
-db = client["Rasa"]
-appointment = db["appointment"]
-
+from rasa_sdk.events import SlotSet
+from actions.sendMailFunction import sendOtpMail
+from actions.dbFun import saveNewAppointmentData,getSingleAppointmentData,updateStatus
 #
 #
 # class ActionHelloWorld(Action):
@@ -50,24 +32,6 @@ appointment = db["appointment"]
 #
 #         return []
 
-names = ["gaurav", "vraj", ".rasa"]
-CITIES = [
-    "mumbai",
-    "delhi",
-    "bangalore",
-    "kolkata",
-    "chennai",
-    "hyderabad",
-    "ahmedabad",
-    "pune",
-    "surat",
-    "jaipur",
-    "lucknow",
-    "kanpur",
-    "nagpur",
-    "indore",
-    "thane"
-]
 
 
 # generating a unique Appointment Id ->
@@ -117,7 +81,7 @@ class ActionHelloWorld(Action):
             "status": "pending",
             "bookedOn": str(datetime.datetime.today())
         }
-        appointment.insert_one(doc)
+        saveNewAppointmentData(doc)
         dispatcher.utter_message(
             f"Hello {name} your appointment ID is {aid}. Remember your appointment ID for future reference !")
         # reset all the slots .........
@@ -229,7 +193,7 @@ class ValidateAppForm(FormValidationAction):
 
         dispatcher.utter_message(
             text=f"Your entered Email ID is {slot_value}.")
-        otp = sendMail(slot_value)
+        otp = sendOtpMail(slot_value)
         # otp = "123456"
         print(slot_value, otp)
         return {"email": slot_value, "sentOTP": otp}
@@ -271,7 +235,7 @@ class ValidateCancelForm(FormValidationAction):
         """Validate `aid` value."""
 
         # call API and  Print all the info about the Patient.
-        dt = appointment.find_one({"_id": slot_value})
+        dt = getSingleAppointmentData(aid=slot_value)
         if dt == None:
             dispatcher.utter_message(
                 text=f"{slot_value} Invalid Appointment ID .")
@@ -282,7 +246,7 @@ class ValidateCancelForm(FormValidationAction):
             return {"aid": slot_value, "requested_slot": None}
         else:
             email = dt["email"]
-            otp = sendMail(email)
+            otp = sendOtpMail(email)
             # otp="123457"
             print(otp)
             dispatcher.utter_message(
@@ -323,10 +287,9 @@ class ResultForCancel(Action):
         aid = tracker.get_slot("aid")
         otp = tracker.get_slot("otp")
         sentOTP = tracker.get_slot("sentOTP")
-        if appointment.find_one({"_id": aid}) is not None:
+        if getSingleAppointmentData(aid) is not None:
             if otp == sentOTP:
-                appointment.update_one(
-                    {"_id": aid}, {"$set": {"status": "cancelled"}})
+                updateStatus(aid,status="cancelled")
                 data = "Your Appointment has been cancelled for AID : " + aid
             else:
                 data = ("Wrong OTP")
@@ -364,7 +327,7 @@ class ValidateStatusForm(FormValidationAction):
         print(slot_value)
 
         # call API and  Print all the info about the Patient.
-        dt = appointment.find_one({"_id": slot_value})
+        dt = getSingleAppointmentData(aid=slot_value)
         if dt == None:
             dispatcher.utter_message(
                 text=f"{slot_value} Invalid Appointment ID . or you have not booked the appointment !")
@@ -386,7 +349,7 @@ class ResultForStatus(Action):
 
         aid = tracker.get_slot("checkaid")
         print(aid)
-        dt = appointment.find_one({"_id": aid})
+        dt =getSingleAppointmentData(aid)
         email = dt["email"]
         name = dt["name"]
         status = dt["status"]

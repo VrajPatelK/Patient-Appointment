@@ -32,7 +32,7 @@ def send_email(sender_email, sender_password, recipient_email, subject, message)
 
 
 # Example usage
-def sendMail(recipient_email):
+def sendOtpMail(recipient_email):
     otp = str(random.randint(100000, 999999))
     sender_email = 'abzxy50312@gmail.com'
     sender_password = 'dnbmivtzqiuqsmbf'
