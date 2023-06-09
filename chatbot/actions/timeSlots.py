@@ -41,14 +41,14 @@ class TimeArray:
 
 
 # Example usage
-time_array = TimeArray()
-bkd = {'2023-06-14': ['09:00-10:00']}  # Add the booked appointments dictionary
-result = time_array.create_time_array(
-    appointment_time=60,
-    serv_start_time="09:00",
-    break_start_time="12:00",
-    break_end_time="13:00",
-    serv_end_time="18:00",
-    bkd=bkd
-)
-print(result)
+# time_array = TimeArray()
+# bkd = {'2023-06-14': ['09:00-10:00']}  # Add the booked appointments dictionary
+# result = time_array.create_time_array(
+#     appointment_time=60,
+#     serv_start_time="09:00",
+#     break_start_time="12:00",
+#     break_end_time="13:00",
+#     serv_end_time="18:00",
+#     bkd=bkd
+# )
+# print(result)
