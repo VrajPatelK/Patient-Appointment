@@ -6,7 +6,7 @@ const ChatBox = ({ conversationMsgs }) => {
   const msgContainerRef = useRef(null);
   const [id, setId] = useState(new Date().getTime());
 
-  const isNonMobileScreens = useMediaQuery("(min-width: 367px)");
+  const isNonMobileScreens = useMediaQuery("(min-width: 600PX)");
 
   useEffect(() => {
     if (msgContainerRef.current) {
@@ -28,15 +28,14 @@ const ChatBox = ({ conversationMsgs }) => {
       sx={{
         zIndex: "25",
         position: "absolute",
-        background: "rgba(187, 187, 187, 0.837)",
-        bottom: "2rem",
-        padding: "0.8rem",
+        background: "#f1f2f6",
+        padding: "0.5rem",
         borderRadius: "1rem",
-        border: "2px solid rgba(128, 128, 128, 0.281)",
+        border: "2px solid rgba(128, 128, 128, 0.81)",
+        bottom: "2rem",
         right: "2rem",
       }}
     >
-      {/* {id ? ( */}
       <Box sx={{ overflow: "auto" }}>
         <h1
           style={{
@@ -50,19 +49,16 @@ const ChatBox = ({ conversationMsgs }) => {
         </h1>
         <Box
           sx={{
-            height: "25rem",
-            width: isNonMobileScreens ? "17rem" : "70vw",
+            height: "70vh",
+            width: isNonMobileScreens ? "35rem" : "70vw",
             overflow: "auto",
-            marginBottom: "1.2rem",
+            marginBottom: "2.4rem",
           }}
           ref={msgContainerRef}
         >
           <NewMsg id={id} conversationMsgs={conversationMsgs} />
         </Box>
       </Box>
-      {/* ) : ( */}
-      <>{/* <Login setId={setId} /> */}</>
-      {/* )} */}
     </Box>
   );
 };

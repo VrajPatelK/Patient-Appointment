@@ -9,6 +9,9 @@ body,
   font-family: "Rubik", sans-serif;
 }
 
-::-webkit-scrollbar{
+::-webkit-scrollbar {
   width: 3px;
+}
+* {
+  color: #2d3436;
 }

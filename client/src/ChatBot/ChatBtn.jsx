@@ -6,9 +6,12 @@ import ChatBox from "./ChatArea/ChatBox";
 // import { getdataFromLocalStorage, setdataFromLocalStorage } from "./chatApis";
 
 export default function ChatBtn() {
-  const [ChatAreaDisplay, setChatAreaDisplay] = useState(false);
-  
-  const [conversationMsgs, setConversationMsgs] = useState([{"bot":"Hello Sir! I can Check Status Of your Appointment"}]);
+  const [ChatAreaDisplay, setChatAreaDisplay] = useState(true);
+
+  const [conversationMsgs, setConversationMsgs] = useState([
+    { bot: "Hello Sir! I can Check Status Of your Appointment" },
+    { c: "Hello " },
+  ]);
   // useEffect(() => {
   //   const dt = getdataFromLocalStorage();
   //   setConversationMsgs(dt);
@@ -19,7 +22,7 @@ export default function ChatBtn() {
       sx={{
         position: "fixed",
         bottom: "1rem",
-        right: "0.2rem",
+        right: "1rem",
       }}
     >
       <IconButton
@@ -38,14 +41,13 @@ export default function ChatBtn() {
               height: "100vh",
               width: "100vw",
               top: 0,
-              background: "rgba(0,0,0,0.5)",
+              background: "rgba(0,0,0,0.25)",
               right: 0,
               zIndex: 3,
               position: "fixed",
-              border: "1px solid ",
+              // border: "5px solid green",
             }}
             onClick={() => {
-              // setdataFromLocalStorage(conversationMsgs);
               setChatAreaDisplay(false);
             }}
           />
