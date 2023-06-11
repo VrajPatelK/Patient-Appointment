@@ -1,6 +1,57 @@
 import { useTheme } from "@emotion/react";
-import { Button, Typography } from "@mui/material";
-import React, { useMemo } from "react";
+import {
+  Autocomplete,
+  Box,
+  Button,
+  TextField,
+  Tooltip,
+  Typography,
+} from "@mui/material";
+import React from "react";
+export const SelectAutoComplete = ({
+  msg,
+  setInputVal,
+  options,
+  label,
+  value,
+  req = true,
+}) => {
+  return (
+    <Tooltip title={msg}>
+      <Autocomplete
+        sx={{ width: "100%" }}
+        options={options}
+        autoHighlight
+        value={value}
+        getOptionLabel={(option) => option}
+        onInputChange={(e, newInputValue) => {
+          setInputVal(newInputValue, String(label).replace(" ", ""));
+        }}
+        renderOption={(props, option) => (
+          <Box
+            component="li"
+            sx={{ width: "100%" }}
+            // sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
+            {...props}
+          >
+            {option}
+          </Box>
+        )}
+        renderInput={(params) => (
+          <TextField
+            required={req}
+            value={value}
+            {...params}
+            label={
+              String(label).charAt(0).toUpperCase() + String(label).substring(1)
+            }
+          />
+        )}
+      />
+    </Tooltip>
+  );
+};
+
 
 export const MyTitle = ({ title }) => {
   const theme = useTheme();

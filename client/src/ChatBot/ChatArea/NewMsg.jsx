@@ -21,7 +21,7 @@ const NewMsg = ({ id, conversationMsgs }) => {
   useEffect(() => {
     setRefresh(0);
   }, [refresh]);
-  const [typing, setTyping] = useState(true);
+  const [typing, setTyping] = useState(false);
   return (
     <>
       <Messages typing={typing} msgLst={conversationMsgs} />

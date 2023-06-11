@@ -7,16 +7,18 @@ import ChatBox from "./ChatArea/ChatBox";
 
 export default function ChatBtn() {
   const [ChatAreaDisplay, setChatAreaDisplay] = useState(true);
-
+ 
   const [conversationMsgs, setConversationMsgs] = useState([
-    { bot: "Hello Sir! I can Check Status Of your Appointment" },
-    { c: "Hello " },
+    { bot: "Hello Sir! I can check status of your appointment, cancel appointment and book appointment for you !" },
+    // { c: "Hello " },
+    // { bot: JSON.stringify(dts) },
+    // { c: "Hello " },
+    // { bot: "Hello Sir! I can Check Status Of your Appointment" },
   ]);
   // useEffect(() => {
   //   const dt = getdataFromLocalStorage();
   //   setConversationMsgs(dt);
   // }, []);
-
   return (
     <Box
       sx={{

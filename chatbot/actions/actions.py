@@ -31,6 +31,38 @@ from actions.dbFun import saveNewAppointmentData,getSingleAppointmentData,update
 #         dispatcher.utter_message(text="Hello World!")
 #
 #         return []
+from  actions.timeSlots import getAvailaleSlotes
+import json
+class ActionAskAppointmentTime(Action):
+
+    def name(self) -> Text:
+        return "action_ask_appointment_time"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        appointment_date = tracker.get_slot("appointment_date")
+        print(appointment_date)
+        all_available_appointment_times = json.loads(tracker.get_slot("allAvailableTimeSlots"))[appointment_date]
+        print(all_available_appointment_times)
+        dispatcher.utter_message(text="Enter on which time you want to take appointment ? "+str(all_available_appointment_times))
+
+        return []
+class ActionAskAppointmentDate(Action):
+
+    def name(self) -> Text:
+        return "action_ask_appointment_date"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        timeslot,dates=getAvailaleSlotes()
+
+        dispatcher.utter_message(text="Enter on which date you want to take appointment ? "+str(dates))
+        
+        return [SlotSet("allAvailableDates",dates),SlotSet("allAvailableTimeSlots",timeslot)]
 
 
 
@@ -69,8 +101,12 @@ class ActionHelloWorld(Action):
         mobile_no = tracker.get_slot("mobile_no")
         city = tracker.get_slot("city")
         email = tracker.get_slot("email")
+        appointment_time = tracker.get_slot("appointment_time")
+        appointment_date = tracker.get_slot("appointment_date")
         aid = unique_aid()
         print(aid)
+        print("appointment_time :  ",appointment_time)
+        print("appointment_date :  ",appointment_date)
         doc = {
             "_id": aid,
             "name": name,
@@ -78,6 +114,11 @@ class ActionHelloWorld(Action):
             "mobile_no": mobile_no,
             "city": city,
             "email": email,
+            "appointmentData":{
+                "time":appointment_time,
+                "date":appointment_date,
+                "with_dr":"Dr. xyz"
+            },
             "status": "pending",
             "bookedOn": str(datetime.datetime.today())
         }
@@ -93,6 +134,8 @@ class ActionHelloWorld(Action):
             SlotSet("email", None),
             SlotSet("otp", None),
             SlotSet("sentOTP", None),
+            SlotSet("appointment_time", None),
+            SlotSet("appointment_date", None),
         ]
         return slots
 
@@ -100,6 +143,7 @@ class ActionHelloWorld(Action):
 
 
 class ValidateAppForm(FormValidationAction):
+
     def name(self) -> Text:
         return "validate_app_form"
 
@@ -193,8 +237,8 @@ class ValidateAppForm(FormValidationAction):
 
         dispatcher.utter_message(
             text=f"Your entered Email ID is {slot_value}.")
-        otp = sendOtpMail(slot_value)
-        # otp = "123456"
+        # otp = sendOtpMail(slot_value)
+        otp = "123456"
         print(slot_value, otp)
         return {"email": slot_value, "sentOTP": otp}
 
@@ -216,6 +260,49 @@ class ValidateAppForm(FormValidationAction):
         else:
             dispatcher.utter_message(text=f"OTP Validation Successfull 🫡 !")
             return {"otp": slot_value}
+    
+    
+    
+    def validate_appointment_time(
+        self,
+        slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        """Validate `appointment time` value."""
+
+
+        appointment_date = tracker.get_slot("appointment_date")
+        all_available_appointment_times = json.loads(tracker.get_slot("allAvailableTimeSlots"))[appointment_date]
+        
+        if slot_value not in all_available_appointment_times:
+            dispatcher.utter_message(
+                text=f"Select appointment time from "+str(all_available_appointment_times))
+            return {"appointment_time": None}
+        else:
+            dispatcher.utter_message(text=f"You selected appointment time is "+slot_value)
+            return {"appointment_time": slot_value}
+    
+    def validate_appointment_date(
+        self,
+        slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        """Validate `appointment date` value."""
+        
+        print("appointment_dates")
+        appointment_dates = (tracker.get_slot("allAvailableDates"))
+        print(slot_value)
+        if slot_value is None:
+            dispatcher.utter_message(
+                text=f"Select appointment date from "+str(appointment_dates))
+            return {"appointment_date": None}
+        else:
+            dispatcher.utter_message(text=f"You selected appointment date is "+slot_value)
+            return {"appointment_date": slot_value}
 
 #  for cancelation of form ..
 
@@ -246,8 +333,8 @@ class ValidateCancelForm(FormValidationAction):
             return {"aid": slot_value, "requested_slot": None}
         else:
             email = dt["email"]
-            otp = sendOtpMail(email)
-            # otp="123457"
+            # otp = sendOtpMail(email)
+            otp="123457"
             print(otp)
             dispatcher.utter_message(
                 text=f"Yes Valid Appointment ID. and OTP is send to your registered email "+email)
