@@ -46,7 +46,7 @@ const Msg = ({ msg, side }) => {
         backgroundColor: "#55efc4",
         /* background-color: rgba(240, 248, 255, 0.555); */
         // border: "1px solid rgb(187, 187, 187)",
-        width: "80%",
+        maxWidth: "80%",
         clear: "both",
         color: "#2d3436",
         margin: "0.5rem",
