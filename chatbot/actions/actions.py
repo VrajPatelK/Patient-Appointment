@@ -7,8 +7,6 @@
 
 # This is a simple example for a custom action which utters "Hello World!"
 
-from actions.uniqueId import unique_aid
-import datetime
 from rasa_sdk import Tracker, FormValidationAction, Action
 from rasa_sdk.events import EventType
 from rasa_sdk.executor import CollectingDispatcher
@@ -16,7 +14,7 @@ from rasa_sdk.types import DomainDict
 from typing import Text, List, Any, Dict
 from rasa_sdk.events import SlotSet
 from actions.sendMailFunction import sendOtpMail
-from actions.dbFun import saveNewAppointmentData,getSingleAppointmentData,updateStatus
+from actions.dbFun import saveNewAppointmentData,getSingleAppointmentData,updateStatus,allDrNames
 #
 #
 # class ActionHelloWorld(Action):
@@ -43,12 +41,13 @@ class ActionAskAppointmentTime(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
         appointment_date = tracker.get_slot("appointment_date")
-        print(appointment_date)
+        # print(appointment_date)
         all_available_appointment_times = json.loads(tracker.get_slot("allAvailableTimeSlots"))[appointment_date]
-        print(all_available_appointment_times)
+        # print(all_available_appointment_times)
         dispatcher.utter_message(text="Enter on which time you want to take appointment ? "+str(all_available_appointment_times))
 
         return []
+    
 class ActionAskAppointmentDate(Action):
 
     def name(self) -> Text:
@@ -57,12 +56,27 @@ class ActionAskAppointmentDate(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
-        timeslot,dates=getAvailaleSlotes()
+        
+        dr_name = tracker.get_slot("dr_name")
+        timeslot,dates=getAvailaleSlotes(drId=dr_name[0:6])
 
         dispatcher.utter_message(text="Enter on which date you want to take appointment ? "+str(dates))
         
         return [SlotSet("allAvailableDates",dates),SlotSet("allAvailableTimeSlots",timeslot)]
+
+class ActionAskDrName(Action):
+
+    def name(self) -> Text:
+        return "action_ask_dr_name"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        drNames = allDrNames()
+        dispatcher.utter_message(text="Select Dr. Name "+str(drNames))
+        
+        return []
 
 
 
@@ -101,28 +115,12 @@ class ActionHelloWorld(Action):
         mobile_no = tracker.get_slot("mobile_no")
         city = tracker.get_slot("city")
         email = tracker.get_slot("email")
+        dr_name = tracker.get_slot("dr_name")
         appointment_time = tracker.get_slot("appointment_time")
         appointment_date = tracker.get_slot("appointment_date")
-        aid = unique_aid()
-        print(aid)
         print("appointment_time :  ",appointment_time)
         print("appointment_date :  ",appointment_date)
-        doc = {
-            "_id": aid,
-            "name": name,
-            "age": age,
-            "mobile_no": mobile_no,
-            "city": city,
-            "email": email,
-            "appointmentData":{
-                "time":appointment_time,
-                "date":appointment_date,
-                "with_dr":"Dr. xyz"
-            },
-            "status": "pending",
-            "bookedOn": str(datetime.datetime.today())
-        }
-        saveNewAppointmentData(doc)
+        aid = saveNewAppointmentData(name,age,mobile_no,city,email,appointment_time,appointment_date,dr_name)
         dispatcher.utter_message(
             f"Hello {name} your appointment ID is {aid}. Remember your appointment ID for future reference !")
         # reset all the slots .........
@@ -133,6 +131,7 @@ class ActionHelloWorld(Action):
             SlotSet("city", None),
             SlotSet("email", None),
             SlotSet("otp", None),
+            SlotSet("dr_name", None),
             SlotSet("sentOTP", None),
             SlotSet("appointment_time", None),
             SlotSet("appointment_date", None),
@@ -358,6 +357,22 @@ class ValidateCancelForm(FormValidationAction):
         else:
             dispatcher.utter_message(text=f"OTP Validation Successfull 🫡 !")
             return {"otp": slot_value}
+    
+    def validate_dr_name(
+        self,
+        slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        """Validate `otp` value."""
+
+        if slot_value is None:
+            dispatcher.utter_message(text=f"Select Dr Name "+allDrNames())
+            return {"otp": None}
+        else:
+            dispatcher.utter_message(text=f"OTP Validation Successfull 🫡 !")
+            return {"otp": slot_value}
 
     # Logic for printing Message for Successfull Cancelation
 
@@ -436,7 +451,7 @@ class ResultForStatus(Action):
 
         aid = tracker.get_slot("checkaid")
         print(aid)
-        dt =getSingleAppointmentData(aid)
+        dt = getSingleAppointmentData(aid)
         email = dt["email"]
         name = dt["name"]
         status = dt["status"]

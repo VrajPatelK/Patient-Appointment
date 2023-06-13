@@ -19,6 +19,7 @@ intents:
   - call_check_appointment_form
   - get_appointment_date
   - get_appointment_time
+  - get_dr_name
 
 entities:
   - name
@@ -39,6 +40,7 @@ entities:
   - appointment_date
   - allAvailableTimeSlots
   - allAvailableDates
+  - dr_name
 
 actions:
   - action_get_form_details
@@ -50,6 +52,7 @@ actions:
   - action_deactivate_form
   - action_ask_appointment_time
   - action_ask_appointment_date
+  - action_ask_dr_name
 
 slots:
   # form_name:
@@ -67,6 +70,14 @@ slots:
     mappings:
       - type: from_entity
         entity: name
+        conditions:
+          - active_loop: app_form
+  dr_name:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: dr_name
         conditions:
           - active_loop: app_form
 
@@ -182,6 +193,7 @@ forms:
       - age
       - mobile_no
       - city
+      - dr_name
       - appointment_date
       - appointment_time
       - email
