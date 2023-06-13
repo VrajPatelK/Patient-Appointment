@@ -72,7 +72,8 @@ class ActionAskDrName(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
+        
+        # getting all Dr. names from database
         drNames = allDrNames()
         dispatcher.utter_message(text="Select Dr. Name "+str(drNames))
         
@@ -118,8 +119,8 @@ class ActionHelloWorld(Action):
         dr_name = tracker.get_slot("dr_name")
         appointment_time = tracker.get_slot("appointment_time")
         appointment_date = tracker.get_slot("appointment_date")
-        print("appointment_time :  ",appointment_time)
-        print("appointment_date :  ",appointment_date)
+        # print("appointment_time :  ",appointment_time)
+        # print("appointment_date :  ",appointment_date)
         aid = saveNewAppointmentData(name,age,mobile_no,city,email,appointment_time,appointment_date,dr_name)
         dispatcher.utter_message(
             f"Hello {name} your appointment ID is {aid}. Remember your appointment ID for future reference !")
@@ -236,8 +237,8 @@ class ValidateAppForm(FormValidationAction):
 
         dispatcher.utter_message(
             text=f"Your entered Email ID is {slot_value}.")
-        # otp = sendOtpMail(slot_value)
-        otp = "123456"
+        otp = sendOtpMail(slot_value)
+        # otp = "123456"
         print(slot_value, otp)
         return {"email": slot_value, "sentOTP": otp}
 
@@ -273,6 +274,8 @@ class ValidateAppForm(FormValidationAction):
 
 
         appointment_date = tracker.get_slot("appointment_date")
+        
+        # get all available time slots as per selected date
         all_available_appointment_times = json.loads(tracker.get_slot("allAvailableTimeSlots"))[appointment_date]
         
         if slot_value not in all_available_appointment_times:
@@ -292,9 +295,9 @@ class ValidateAppForm(FormValidationAction):
     ) -> Dict[Text, Any]:
         """Validate `appointment date` value."""
         
-        print("appointment_dates")
+        # print("appointment_dates")
         appointment_dates = (tracker.get_slot("allAvailableDates"))
-        print(slot_value)
+        # print(slot_value)
         if slot_value is None:
             dispatcher.utter_message(
                 text=f"Select appointment date from "+str(appointment_dates))
@@ -332,9 +335,9 @@ class ValidateCancelForm(FormValidationAction):
             return {"aid": slot_value, "requested_slot": None}
         else:
             email = dt["email"]
-            # otp = sendOtpMail(email)
-            otp="123457"
-            print(otp)
+            otp = sendOtpMail(email)
+            # otp="123457"
+            # print(otp)
             dispatcher.utter_message(
                 text=f"Yes Valid Appointment ID. and OTP is send to your registered email "+email)
             return {"aid": slot_value, "sentOTP": otp}
@@ -426,7 +429,7 @@ class ValidateStatusForm(FormValidationAction):
     ) -> Dict[Text, Any]:
         """Validate `checkaid` value."""
 
-        print(slot_value)
+        # print(slot_value)
 
         # call API and  Print all the info about the Patient.
         dt = getSingleAppointmentData(aid=slot_value)
@@ -450,7 +453,7 @@ class ResultForStatus(Action):
 
 
         aid = tracker.get_slot("checkaid")
-        print(aid)
+        # print(aid)
         dt = getSingleAppointmentData(aid)
         email = dt["email"]
         name = dt["name"]

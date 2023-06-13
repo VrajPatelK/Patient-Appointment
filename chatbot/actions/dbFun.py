@@ -3,8 +3,8 @@ from pymongo import MongoClient
 import ssl
 
 # mongodb+srv://gauravteli:gauravteli@cluster0.iykzyey.mongodb.net/?retryWrites=true&w=majority
-DB_URL = "mongodb://localhost:27017"
-# DB_URL = "mongodb+srv://gauravteli:gauravteli@cluster0.iykzyey.mongodb.net/?retryWrites=true&w=majority"
+# DB_URL = "mongodb://localhost:27017"
+DB_URL = "mongodb+srv://gauravteli:gauravteli@cluster0.iykzyey.mongodb.net/?retryWrites=true&w=majority"
 
 # adding not adding the security by Secure Socket Layer
 client = MongoClient(DB_URL, ssl_cert_reqs=ssl.CERT_NONE)
@@ -14,9 +14,9 @@ print("connected successfully")
 
 db = client["RasaDb"]
 
-doctors = db["doctors"]
-appointments = db["appointments"]
-bookedSlots = db["bookedSlots"]
+doctors = db["doctors"] # to store doctor's data
+appointments = db["appointments"] # to store appoinments
+bookedSlots = db["bookedSlots"] # to store booked appoinment slots
 
 def saveNewAppointmentData(name,age,mobile_no,city,email,appointment_time,appointment_date,drName):
     drId = drName[:6]
@@ -58,8 +58,34 @@ def updateStatus(aid, status):
         )
 
 def allDrNames():
+    # for fetching list of Dr, names  ex. ['dr_001 Dr. Sarah Johnson - specialist of heart', 'dr_002 Dr. David Smith - specialist of dental', 'dr_003 Dr. Emily Williams - specialist of heart']
     return  str([i["_id"]+" "+i["name"] +" - specialist of "+i["specialistFor"] for i in doctors.find({})])
 
+def getAvailablityTimesAndDays(drId):
+    try:
+        drData=doctors.find_one({"_id":drId})
+        return drData["availibility"]
+    except:
+        return "Dr. Id doesn't matched"
+
+def addBookingtTimeToBookedSlotsCollection(date,timeSlot,drId):
+    qry={"_id":date}
+    data=bookedSlots.find_one(qry)
+    if not data:
+        for x in  doctors.distinct("_id"):
+            qry[x]=[]
+        qry[drId]=[timeSlot]
+        bookedSlots.insert_one(qry)
+    else:
+        update={"$push":{drId:timeSlot}}
+        bookedSlots.update_one(qry,update)
+
+def getBookedData(date,drId):
+    data=bookedSlots.find_one({"_id":date})    
+    return [] if data is None else data[drId]
+
+
+# for add new doctor
 def addNewDr(name:str,email:str,specialistFor:str,availibilityTime:list,availibilityDays:list,slotDuration:int):
     id="dr_"+str(doctors.count_documents({})+1).zfill(3)
         
@@ -80,13 +106,20 @@ def addNewDr(name:str,email:str,specialistFor:str,availibilityTime:list,availibi
         "appointments":[]
     })
 
-def getAvailablityTimesAndDays(drId):
-    try:
-        drData=doctors.find_one({"_id":drId})
-        return drData["availibility"]
-    except:
-        return "Dr. Id doesn't matched"
     
+
+
+
+
+
+
+
+
+
+
+
+
+
 # print(getAvailablityTimesAndDays("dr_001"))
 # def updateDrData(_id:str,name:str,email:str,specialistFor:str,availibilityTime:list,availibilityDays:list,slotDuration:int):
 #     doctors.insert_one({
@@ -112,22 +145,6 @@ def getAvailablityTimesAndDays(drId):
 
 # print("dr_Sarah_001_AP"[:-3])
 # print(saveNewAppointmentData(  "name", "age", "mobile_no", "city", "email","appointment_time","appointment_date",   drName="Dr. Sarah Johnson - specialist of heart"))
-
-def addBookingtTimeToBookedSlotsCollection(date,timeSlot,drId):
-    qry={"_id":date}
-    data=bookedSlots.find_one(qry)
-    if not data:
-        for x in  doctors.distinct("_id"):
-            qry[x]=[]
-        qry[drId]=[timeSlot]
-        bookedSlots.insert_one(qry)
-    else:
-        update={"$push":{drId:timeSlot}}
-        bookedSlots.update_one(qry,update)
-
-def getBookedData(date,drId):
-    data=bookedSlots.find_one({"_id":date})    
-    return [] if data is None else data[drId]
 
 # print(getBookedData(date="2023-06-30",drId="dr_002"))
 
