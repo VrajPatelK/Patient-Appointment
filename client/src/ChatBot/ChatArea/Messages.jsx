@@ -4,7 +4,7 @@ export default function Messages({ msgLst }) {
   return (
     <>
       {msgLst.map((m, i) => (
-        <Box key={i} fontSize={"0.7rem"}>
+        <Box key={i} fontSize={"0.8rem"}>
           {m["c"] ? (
             <p className="mess visitor">{m["c"]}</p>
           ) : (

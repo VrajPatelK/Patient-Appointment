@@ -2,7 +2,7 @@
 
 ### Puropose
 
-* This project is a chatbot application developed for managing patient appointments. It utilizes various technologies and frameworks to provide an efficient and user-friendly experience. 
+* This project is a NLU based chatbot application developed for managing patient appointments. It utilizes various technologies and frameworks to provide an efficient and user-friendly experience. 
 
 ### Functionality
 ##### The chatbot application provides the following functionality:
