@@ -11,7 +11,7 @@ nlu:
 
   - regex: aid
     examples: |
-      - \b{HOS_AID_}d{12}\b
+      - \b{dr_001_AP_}d{12}\b
 
   - intent: call_me
     examples: |
@@ -517,8 +517,76 @@ nlu:
       - my mobile number is [6355312073](mobile_no) 
       - [6355312073](mobile_no)  is my mobile number
 
-  # for form cancellation ..................#################################
+  - intent: get_appointment_time
+    examples: |
+      - [1:00-2:00](appointment_time)
+      - [11:00-12:00](appointment_time)
+      - [3:00-4:00](appointment_time)
+      - [09:00-10:00](appointment_time)
+      - [10:00-11:00](appointment_time)
+      - [11:00-12:00](appointment_time)
+      - [13:00-14:00](appointment_time)
+      - [14:00-15:00](appointment_time)
+      - [15:00-16:00](appointment_time)
+      - [16:00-17:00](appointment_time)
+      - [17:00-18:00](appointment_time)
+      - [09:00-09:15](appointment_time)
+      - [09:15-09:30](appointment_time)
+      - [09:30-09:45](appointment_time)
+      - [09:45-10:00](appointment_time)
+      - [10:00-10:15](appointment_time)
+      - [10:15-10:30](appointment_time)
+      - [10:30-10:45](appointment_time)
+      - [10:45-11:00](appointment_time)
+      - [11:00-11:15](appointment_time)
+      - [11:15-11:30](appointment_time)
+      - [11:30-11:45](appointment_time)
+      - [11:45-12:00](appointment_time)
+      - [13:00-13:15](appointment_time)
+      - [13:15-13:30](appointment_time)
+      - [13:30-13:45](appointment_time)
+      - [13:45-14:00](appointment_time)
+      - [14:00-14:15](appointment_time)
+      - [14:15-14:30](appointment_time)
+      - [14:30-14:45](appointment_time)
+      - [14:45-15:00](appointment_time)
+      - [15:00-15:15](appointment_time)
+      - [15:15-15:30](appointment_time)
+      - [15:30-15:45](appointment_time)
+      - [15:45-16:00](appointment_time)
+      - [16:00-16:15](appointment_time)
+      - [16:15-16:30](appointment_time)
 
+  - intent: get_appointment_date
+    examples: |
+      - [2023-12-12](appointment_date)
+      - [2023-9-6](appointment_date)
+      - [2023/7/5](appointment_date)
+      - [2023/5/12](appointment_date)
+      - [2023-06-12](appointment_date)
+      - [2023-06-13](appointment_date)
+      - [2023-06-14](appointment_date)
+      - [2023-06-15](appointment_date)
+      - [2023-06-16](appointment_date)
+      - [2023-06-17](appointment_date)
+      - [2023-06-18](appointment_date)
+      - [2023/06/12](appointment_date)
+      - [2023/06/13](appointment_date)
+      - [2023/06/14](appointment_date)
+      - [2023/06/15](appointment_date)
+      - [2023/06/16](appointment_date)
+      - [2023/06/17](appointment_date)
+      - [2023/06/18](appointment_date)
+
+  - regex: appointment_date
+    examples: |
+      - \d{4}[-/\\]\d{1,2}[-/\\]\d{1,2}
+
+  - regex: appointment_time
+    examples: |
+      - \d{2}:\d{2}-\d{2}:\d{2}
+
+  # for form cancellation ..................#################################
   - intent: call_cancel_form
     examples: |
       - I need to cancel my scheduled appointment.
@@ -552,40 +620,47 @@ nlu:
       - Please proceed with canceling the appointment as soon as possible.
       - I've changed my mind and want to cancel the appointment.
       - Cancel
-      - my appointment ID is [12345_ABCDE](aid)
-      - [12345_ABCDE](aid)
-      - I want to cancel my appointment with ID [12345_ABCDE](aid)
-      - Please cancel my appointment. The ID is [67890_XYZAB](aid)
-      - Can you assist me in canceling my appointment? The ID is [98765_QWERT](aid)
-      - I need to cancel my appointment with ID [54321_UIOJK](aid)
-      - My appointment ID is [24680_ZXCVB](aid), and I want to cancel it.
-      - I want to cancel my appointment with ID [13579_POIUY](aid). Can you help?
-      - Help me cancel my appointment. The ID is [86420_MNBVC](aid).
-      - Can you please cancel my appointment with ID [97531_YTREW](aid)?
-      - I need to cancel my appointment with ID [24680_KLJHG](aid). Please assist.
-      - I want to cancel my appointment. The ID is [64257_QWERT](aid)
-      - Please cancel my appointment with ID [12345_ASDER](aid)
-      - I need to cancel my appointment with ID [56789_POIUY](aid). Can you help me?
-      - Help me cancel my appointment. The ID is [98765_LKJHG](aid).
-      - Can you assist me in canceling my appointment with ID [24680_ZXCVB](aid)?
-      - I want to cancel my appointment with ID [54321_UIJKL](aid). Please help me.
-      - Please cancel my appointment. The ID is [13579_QWERT](aid).
-      - I need to cancel my appointment with ID [86420_ASDER](aid). Can you assist?
-      - Can you please cancel my appointment with ID [97531_KLJHG](aid)?
-      - I want to cancel my appointment with ID [24680_YTREW](aid). Help me with that.
-      - Please cancel my appointment. The ID is [64257_MNBVC](aid).
-      - I need to cancel my appointment with ID [12345_UIOJK](aid). Can you assist me?
-      - Help me cancel my appointment. The ID is [56789_ZXCVB](aid).
-      - Can you please cancel my appointment with ID [24680_POIUY](aid)?
-      - I want to cancel my appointment with ID [98765_ASDER](aid). Please assist me.
-      - Please cancel my appointment. The ID is [54321_LKJHG](aid).
+      - my appointment ID is [dr_041_AP_1686573413011](aid)
+      - [dr_009_AP_1686573413011](aid)
+      - I want to cancel my appointment with ID [dr_007_AP_1686573413011](aid)
+      - Please cancel my appointment. The ID is [dr_006_AP_1686573413011](aid)
+      - Can you assist me in canceling my appointment? The ID is [dr_101_AP_1686573413011](aid)
+      - I need to cancel my appointment with ID [dr_021_AP_1686573413011](aid)
+      - My appointment ID is [dr_001_AP_1686573413511](aid), and I want to cancel it.
+      - I want to cancel my appointment with ID [dr_001_AP_1686575413011](aid). Can you help?
+      - Help me cancel my appointment. The ID is [dr_001_AP_1686753413011](aid).
+      - Can you please cancel my appointment with ID [dr_001_AP_6186573413011](aid)?
+      - I need to cancel my appointment with ID [dr_001_AP_1686531413011](aid). Please assist.
+      - I want to cancel my appointment. The ID is [dr_001_AP_1613573413011](aid)
+      - Please cancel my appointment with ID [dr_001_AP_1686573489011](aid)
+      - I need to cancel my appointment with ID [dr_001_AP_1686573143011](aid). Can you help me?
+      - Help me cancel my appointment. The ID is [dr_001_AP_1686574313011](aid).
+      - Can you assist me in canceling my appointment with ID [dr_061_AP_1686573413011](aid)?
+      - I want to cancel my appointment with ID [dr_051_AP_1686573413011](aid). Please help me.
+      - Please cancel my appointment. The ID is [dr_001_AP_1616573413011](aid).
+      - I need to cancel my appointment with ID [dr_001_AP_1606573413011](aid). Can you assist?
+      - Can you please cancel my appointment with ID [dr_005_AP_1086573413011](aid)?
+      - I want to cancel my appointment with ID [dr_051_AP_1686570413011](aid). Help me with that.
+      - Please cancel my appointment. The ID is [dr_031_AP_1686573413011](aid).
+      - I need to cancel my appointment with ID [dr_011_AP_1686573413011](aid). Can you assist me?
+      - Help me cancel my appointment. The ID is [dr_010_AP_1006573413011](aid).
+      - Can you please cancel my appointment with ID [dr_011_AP_1600573413011](aid)?
+      - I want to cancel my appointment with ID [dr_005_AP_1686573413101](aid). Please assist me.
+      - Please cancel my appointment. The ID is [dr_001_AP_1686573413011](aid).
 
   - intent: get_AID
     examples: |
-      - my appointment ID is [HOS_AID_147852369852](aid)
-      - [HOS_AID_147852369552](aid) is my aid
-      - here is my appointment ID [HOS_AID_147852369552](aid)
-      - [HOS_AID_147852369552](aid)
+      - my appointment ID is [dr_001_AP_147852369852](aid)
+      - [dr_002_AP_147852369552](aid) is my aid
+      - here is my appointment ID [dr_003_AP_147852369552](aid)
+      - [dr_001_AP_147852369552](aid)
+
+  - intent: get_dr_name
+    examples: |
+      - ['Dr. Sarah Johnson - specialist of heart'](dr_name)
+      - ['Dr. David Smith - specialist of dental'](dr_name)
+      - ['Dr. Emily Williams - specialist of heart'](dr_name)
+      - ['Dr. John Williams - specialist of heart'](dr_name)
 
   - regex: otp
     examples: |
@@ -593,10 +668,14 @@ nlu:
 
   - intent: wr_otp
     examples: |
-      - [123456](otp)
-      - otp is [123656](otp)
-      - here is otp [173656](otp)
-      - [783656](otp) is otp
+      - [123006](otp)
+      - otp is [100656](otp)
+      - here is otp [103656](otp)
+      - here is otp [173056](otp)
+      - here is otp [173612](otp)
+      - [783606](otp) is otp
+      - [783616](otp) is otp
+      - [221236](otp) is otp
 
   - regex: email
     examples: |
@@ -703,7 +782,7 @@ nlu:
       - am I talking to a bot?
       - am I talking to a human?
 
-# form status Check changes done by me
+  # form status Check changes done by me
   - intent: call_check_appointment_form
     examples: |
       - i want to check my appointment status
@@ -718,11 +797,4 @@ nlu:
       - I'm wondering if my appointment status has changed.
       - Has there been any change in the status of my appointment?
       - Can you verify whether my appointment is still active?
-      - check the status for the [HOS_AID_310523123146](aid) appointment
-
-
-
-
-
-
-
+      - check the status for the [dr_001_AP_310523123146](aid) appointment

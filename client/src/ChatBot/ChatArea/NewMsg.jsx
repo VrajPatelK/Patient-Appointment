@@ -1,4 +1,4 @@
-import { Box, Button } from "@mui/material";
+import { Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import Messages from "./Messages";
 import WriteMsg from "./WriteMsg";
@@ -24,21 +24,21 @@ const NewMsg = ({ id, conversationMsgs }) => {
   const [typing, setTyping] = useState(false);
   return (
     <>
-      <Messages msgLst={conversationMsgs} />
-      {typing && (
-        <Box fontSize={"0.7rem"} px={1}>
-          typing...
-        </Box>
-      )}
-      {/* <FilterAsHome  typing={typing} setTyping={setTyping} /> */}
-      
+      <Messages typing={typing} msgLst={conversationMsgs} />
       <Box
         sx={{
           position: "absolute",
           bottom: 10,
+          width: "100%",
         }}
       >
-        <WriteMsg id={id} typing={typing} setTyping={setTyping} setRefresh={setRefresh} msgList={conversationMsgs} />
+        <WriteMsg
+          id={id}
+          typing={typing}
+          setTyping={setTyping}
+          setRefresh={setRefresh}
+          msgList={conversationMsgs}
+        />
       </Box>
     </>
   );

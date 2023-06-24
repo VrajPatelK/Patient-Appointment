@@ -46,6 +46,12 @@ stories:
   - slot_was_set:
     - requested_slot: city
   - slot_was_set:
+    - requested_slot: dr_name
+  - slot_was_set:
+    - requested_slot: appointmentDate
+  - slot_was_set:
+    - requested_slot: appointmentTime
+  - slot_was_set:
     - requested_slot: email
   - slot_was_set:
     - requested_slot: otp

@@ -19,10 +19,8 @@
   width: 80%;
   clear: both;
   margin: 0.2rem;
-  padding: 0.4rem; /* // change done previous 0.1 rem */
+  padding: 0.1rem;
   border-radius: 0.3rem;
-  color: black;
-  font-family:Georgia, 'Times New Roman', Times, serif; /*done changes here*/
 }
 
 .visitor {
