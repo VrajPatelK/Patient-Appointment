@@ -22,6 +22,20 @@ nlu:
       - form fill up
       - lets fill the form
       - fill form
+      - book an appointment
+      - i want to book my appointment
+      - book appointment
+      - book my appointment
+      - appointment book
+      - book
+      - I would like to book an appointment.
+      - Can you help me schedule an appointment?
+      - I want to make an appointment.
+      - How can I book an appointment?
+      - I need to set up a time for an appointment.
+      - Can I arrange a appointment ?
+      - What's the process for booking an appointment?
+      - Do you have any availability for an appointment?
 
   - intent: stop
     examples: |
@@ -657,10 +671,10 @@ nlu:
 
   - intent: get_dr_name
     examples: |
-      - ['Dr. Sarah Johnson - specialist of heart'](dr_name)
-      - ['Dr. David Smith - specialist of dental'](dr_name)
-      - ['Dr. Emily Williams - specialist of heart'](dr_name)
-      - ['Dr. John Williams - specialist of heart'](dr_name)
+      - ['dr_301 Dr. Sarah Johnson - specialist of heart'](dr_name)
+      - ['dr_021 Dr. David Smith - specialist of dental'](dr_name)
+      - ['dr_121 Dr. Emily Williams - specialist of heart'](dr_name)
+      - ['dr_102 Dr. John Williams - specialist of heart'](dr_name)
 
   - regex: otp
     examples: |
