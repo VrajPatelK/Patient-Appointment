@@ -34,8 +34,9 @@ def send_email(sender_email, sender_password, recipient_email, subject, message)
 # Example usage
 def sendOtpMail(recipient_email):
     otp = str(random.randint(100000, 999999))
-    sender_email = 'abzxy50312@gmail.com'
-    sender_password = 'dnbmivtzqiuqsmbf'
+    sender_email = 'abzxy50312@gmail.com'  # you can use your email instead
+    sender_password = 'dnbmivtzqiuqsmbf'  # change as per your gmail app-password
+    # https://youtu.be/iGPPhzhXBFg  youtube video link to generate password for your email  
     subject = 'OTP for ChatBot'
     message = 'Your OTP is '+otp
     print("Sending...")
