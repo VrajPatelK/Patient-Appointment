@@ -4,6 +4,8 @@ import ssl
 
 # mongodb+srv://gauravteli:gauravteli@cluster0.iykzyey.mongodb.net/?retryWrites=true&w=majority
 # DB_URL = "mongodb://localhost:27017"
+
+# ATLAS MONGODB DATA BASE URL
 DB_URL = "mongodb+srv://gauravteli:gauravteli@cluster0.iykzyey.mongodb.net/?retryWrites=true&w=majority"
 
 # adding not adding the security by Secure Socket Layer
@@ -42,6 +44,7 @@ def saveNewAppointmentData(name,age,mobile_no,city,email,appointment_time,appoin
     addBookingtTimeToBookedSlotsCollection(date=appointment_date,timeSlot=appointment_time,drId=drId)
     return aid
 
+# TO RETRIVE APPOINTMENT DETAILS OF A PATIENT FROM DATABASE AS PER HIS AID(APPOINTMENT ID)
 def getSingleAppointmentData(aid):
     try:
         return appointments.find_one(
@@ -50,17 +53,20 @@ def getSingleAppointmentData(aid):
             )["appointments"][0]
     except:
         return "No Record Found! Check Your aid (apppointment id)"
-
+    
+# TO UPDATE THE STATUS 
 def updateStatus(aid, status):
     appointments.update_one(
             {"_id": aid[:9], "appointments._id": aid },
             { "$set": { "appointments.$.status": status } }    
         )
 
+# TO RETRIVE ALL DOCTORS DATA
 def allDrNames():
     # for fetching list of Dr, names  ex. ['dr_001 Dr. Sarah Johnson - specialist of heart', 'dr_002 Dr. David Smith - specialist of dental', 'dr_003 Dr. Emily Williams - specialist of heart']
     return  str([i["_id"]+" "+i["name"] +" - specialist of "+i["specialistFor"] for i in doctors.find({})])
 
+# TO RETRIVE AVAILABLE TIME SLOTS FOR PARTICULAR DOCTOR
 def getAvailablityTimesAndDays(drId):
     try:
         drData=doctors.find_one({"_id":drId})
@@ -68,6 +74,7 @@ def getAvailablityTimesAndDays(drId):
     except:
         return "Dr. Id doesn't matched"
 
+# MAINTAIN DATA OF BOOKED SLOTS
 def addBookingtTimeToBookedSlotsCollection(date,timeSlot,drId):
     qry={"_id":date}
     data=bookedSlots.find_one(qry)
@@ -80,12 +87,13 @@ def addBookingtTimeToBookedSlotsCollection(date,timeSlot,drId):
         update={"$push":{drId:timeSlot}}
         bookedSlots.update_one(qry,update)
 
+# TO RETRIVE BOOKED SLOTS 
 def getBookedData(date,drId):
     data=bookedSlots.find_one({"_id":date})    
     return [] if data is None else data[drId]
 
 
-# for add new doctor
+# FOR ADD NEW DOCTOR
 def addNewDr(name:str,email:str,specialistFor:str,availibilityTime:list,availibilityDays:list,slotDuration:int):
     id="dr_"+str(doctors.count_documents({})+1).zfill(3)
         

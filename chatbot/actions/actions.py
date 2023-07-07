@@ -79,16 +79,6 @@ class ActionAskDrName(Action):
         
         return []
 
-
-
-# generating a unique Appointment Id ->
-# def generate_unique_id():
-#     digit_part = ''.join(secrets.choice(string.digits) for _ in range(5))
-#     char_part = ''.join(secrets.choice(string.ascii_letters) for _ in range(5))
-#     unique_id = f"{digit_part}_{char_part}"
-#     return unique_id
-
-
 # printing got appointment
 
 
@@ -102,6 +92,8 @@ class ActionAskDrName(Action):
         
 #         return [SlotSet("requested_slot", None), Form(None)]
 
+
+# TO SAVE APPOINTMENT DATA OF A PATIENT
 class ActionHelloWorld(Action):
 
     def name(self) -> Text:
@@ -139,9 +131,9 @@ class ActionHelloWorld(Action):
         ]
         return slots
 
+
+
 # validation logic for appointment
-
-
 class ValidateAppForm(FormValidationAction):
 
     def name(self) -> Text:
@@ -306,9 +298,8 @@ class ValidateAppForm(FormValidationAction):
             dispatcher.utter_message(text=f"You selected appointment date is "+slot_value)
             return {"appointment_date": slot_value}
 
+
 #  for cancelation of form ..
-
-
 class ValidateCancelForm(FormValidationAction):
 
     def name(self) -> Text:
@@ -377,9 +368,9 @@ class ValidateCancelForm(FormValidationAction):
             dispatcher.utter_message(text=f"OTP Validation Successfull 🫡 !")
             return {"otp": slot_value}
 
-    # Logic for printing Message for Successfull Cancelation
 
 
+# Logic for printing Message for Successfull Cancelation
 class ResultForCancel(Action):
 
     def name(self) -> Text:
@@ -414,7 +405,6 @@ class ResultForCancel(Action):
 
 
 #  for status check form ..
-
 class ValidateStatusForm(FormValidationAction):
 
     def name(self) -> Text:
@@ -442,6 +432,7 @@ class ValidateStatusForm(FormValidationAction):
             dispatcher.utter_message(text=f"Yes Valid Appointment ID. and your email is {email}")
             return {"checkaid": slot_value}
 
+# SEND DATA OF PATIENT WHILE CHECKING STATUS 
 class ResultForStatus(Action):
 
     def name(self) -> Text:
