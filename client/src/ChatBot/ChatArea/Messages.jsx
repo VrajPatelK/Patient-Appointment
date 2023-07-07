@@ -4,6 +4,7 @@ import FlexBetween from "../../Components/FlexBetween";
 export default function Messages({ msgLst, typing }) {
   return (
     <>
+      {/* // TO DISPLAY ALL MESSAGES FROM THE OBJECT  */}
       {msgLst.map((m, i) => (
         <MsgInstace
           key={i}
@@ -11,6 +12,7 @@ export default function Messages({ msgLst, typing }) {
           msg={m["bot"] ? m["bot"] : m["c"]}
         />
       ))}
+      {/* TO DISPLAY "typing..." WHILE SERVER IS PROCCESSING ON DATA */}
       {typing && <MsgInstace side={false} msg={"typing..."} />}
     </>
   );
@@ -21,6 +23,8 @@ const MsgInstace = ({ side, msg }) => {
     <FlexBetween fontSize={".9rem"}>
       {side ? (
         <>
+          {/* USER SIDE */}
+          {/* TO DISPLAY MESSAGE ON RIGHT SIDE  */}
           <Box flexGrow={1}></Box>
           <Msg
             msg={msg}
@@ -28,10 +32,11 @@ const MsgInstace = ({ side, msg }) => {
               float: "right",
               backgroundColor: "rgba(147, 135, 135, 0.696)",
             }}
-            />
+          />
         </>
       ) : (
         <>
+          {/* CHATBOT SIDE */}
           <Msg msg={msg} />
         </>
       )}
@@ -44,8 +49,6 @@ const Msg = ({ msg, side }) => {
     <Box
       sx={{
         backgroundColor: "#55efc4",
-        /* background-color: rgba(240, 248, 255, 0.555); */
-        // border: "1px solid rgb(187, 187, 187)",
         maxWidth: "80%",
         clear: "both",
         color: "#2d3436",

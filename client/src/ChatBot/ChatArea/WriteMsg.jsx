@@ -1,13 +1,16 @@
 import SendIcon from "@mui/icons-material/Send";
 import React, { useState } from "react";
 import { sendNewMsgs } from "../chatApis";
-import { Box, Button, IconButton, Select, TextField } from "@mui/material";
-import { MyBtn, SelectAutoComplete } from "../../Components/MyComponent";
+import { IconButton, TextField } from "@mui/material";
+import { SelectAutoComplete } from "../../Components/MyComponent";
 import FlexBetween from "../../Components/FlexBetween";
 
 const WriteMsg = ({ msgList, setRefresh, id, typing, setTyping }) => {
+  // FOR CHANGING TEXTBOX TYPE : (TYPE MESSAGE OTR SELECT OPTION)
   const [selectList, setSelectList] = useState([]);
+  // TO STORE MESSAGE VALUE
   const [val, setVal] = useState("");
+  // TO SEND NEW MESSAGE AND RECEIVE IT
   const handleSendMess = (e) => {
     e.preventDefault();
     if (val === "") {
@@ -24,17 +27,15 @@ const WriteMsg = ({ msgList, setRefresh, id, typing, setTyping }) => {
       sendNewMsgs({ sender: id, message: val })
         .then((x) =>
           x.map((m) => {
-            // m.text = 'Select Time ["1","2"]';
-            // m.text = "Select Time ['1','2']";
             const indOfOpenSqrBrk = String(m.text).indexOf("[");
             if (indOfOpenSqrBrk === -1) {
               msgList.push({ bot: m.text });
               setSelectList([]);
             } else {
+              // ADDING NEW MESSAGE TO CONVERSATION LIST
               msgList.push({
                 bot: String(m.text).substring(0, indOfOpenSqrBrk),
               });
-              // console.log(String(m.text).substring(indOfOpenSqrBrk));
               let tmpStr = String(m.text).substring(indOfOpenSqrBrk);
               while (tmpStr.indexOf("'") !== -1)
                 tmpStr = tmpStr.replace("'", '"');

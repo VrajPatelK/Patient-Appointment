@@ -4,11 +4,14 @@ import NewMsg from "./NewMsg";
 
 const ChatBox = ({ conversationMsgs }) => {
   const msgContainerRef = useRef(null);
+  //  GENERATE NEW USERID FOR EVERYTIME SOMEONE START CHAT WITH CHATBOT USING MILISECOND TIME FUNCTION
+  // (NOTE: IT'S ONLY FOR SENDING DATA TO BACKEND AS IT'S REQUIRED TO SEND DATA TO BACKEND. WE ARE NOT SAVING IT ANYWHERE)
   const [id, setId] = useState(new Date().getTime());
-
+  //  TO MAKE MOBILE RESPONSIVE
   const isNonMobileScreens = useMediaQuery("(min-width: 600PX)");
 
   useEffect(() => {
+    // FUNCTION TO SCROLL UPTO LAST MESSAGE
     if (msgContainerRef.current) {
       const container = msgContainerRef.current;
       container.scrollTop = container.scrollHeight - container.clientHeight;
@@ -47,6 +50,7 @@ const ChatBox = ({ conversationMsgs }) => {
         >
           Chat Bot
         </h1>
+        {/* MESSAGE CONTAINER */}
         <Box
           sx={{
             height: "70vh",
@@ -56,6 +60,7 @@ const ChatBox = ({ conversationMsgs }) => {
           }}
           ref={msgContainerRef}
         >
+          {/* MESSAGE CONTAINER FOR WRITE NEW MESSAGE AND DISPLAY ALL MESSAGES */}
           <NewMsg id={id} conversationMsgs={conversationMsgs} />
         </Box>
       </Box>

@@ -5,7 +5,6 @@ import {
   Button,
   TextField,
   Tooltip,
-  Typography,
 } from "@mui/material";
 import React from "react";
 export const SelectAutoComplete = ({
@@ -17,6 +16,7 @@ export const SelectAutoComplete = ({
   req = true,
 }) => {
   return (
+    
     <Tooltip title={msg}>
       <Autocomplete
         sx={{ width: "100%" }}
@@ -51,22 +51,6 @@ export const SelectAutoComplete = ({
     </Tooltip>
   );
 };
-
-
-export const MyTitle = ({ title }) => {
-  const theme = useTheme();
-  return (
-    <Typography
-    width={"100%"}
-      fontWeight={"bold"}
-      fontSize={"1.5rem"}
-      color={theme.palette.primary.main}
-    >
-      {title}
-    </Typography>
-  );
-};
-
 
 export const MyBtn = ({ onclickHandle, label = "x" }) => {
   const theme = useTheme();
