@@ -42,10 +42,30 @@
 
 ## Setup Environment
 
-### Option 1: Python version
+### Required Python version
 - [python 3.9.13](https://www.python.org/downloads/release/python-3913/) 
 
-### Option 2: Verrual environment & Download modules
+### Steps to setup Vertual environment
+
+#### setup for client (must have directory path of client directory in terminal)
+
+
+- open client directory
+```
+cd client/
+```
+
+- install Reactjs modules
+```
+npm install
+```
+
+#### setup for server (must have directory path of chatbot directory in terminal)
+- open chatbot directory
+```
+cd chatbot/
+```
+
 - Create a virtual environment:
   ```bash
   python -m venv venv
@@ -55,42 +75,60 @@
   pip install -r requirements.txt
 
 
-### Getting Started
+### Steps to run the chatbot
 
 
+#### run the client 
 
-1. Train the model
+1. open client directory in terminal
+```
+cd client/
+``` 
 
+2. start client side
+```
+npm start
+``` 
+
+#### run the rasa server 
+1. open chatbot directory in terminal
+```
+cd chatbot/
+``` 
+
+2. Activate vertual environment
+```
+venv\Scripts\Activate.ps1
+```
+
+3. Train the model
 ```
 rasa train
 ```
+4. To start rasa server to access on client side 
 
-2. To run action.py file
+```
+rasa run -m models --enable-api --cors "*"
+```
+
+5. To run action.py file (in another terminal)
 
 ```
 rasa run actions
 ```
 
-3. To run the project and test using shell
-
-```
-rasa shell
-
-4. to start rasa server to access on client side 
-
-```
-rasa run -m models --enable-api --cors "*"
-
-- access on client side using .env file (add following key-value into .env)
-
-REACT_APP_RASA="http://localhost:5005/webhooks/rest/webhook"
-
-
-5. To reset the conversation state and starts a new dialogue session with the chatbot.
+6. To reset the conversation state and starts a new dialogue session with the chatbot.
 
 ```
 /restart
 ```
+
+
+##### access on client side using .env file 
+- add following key-value into .env
+REACT_APP_RASA = "http://localhost:5005/webhooks/rest/webhook"
+
+
 
 <hr>
 
