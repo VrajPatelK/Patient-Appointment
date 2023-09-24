@@ -39,7 +39,25 @@
 
 <img src="https://img.shields.io/badge/-Postman%20API-FF6C37.svg" alt="Postman API" style="margin-right:1rem">
 
+
+## Setup Environment
+
+### Option 1: Python version
+- [python 3.9.13](https://www.python.org/downloads/release/python-3913/) 
+
+### Option 2: Verrual environment & Download modules
+- Create a virtual environment:
+  ```bash
+  python -m venv venv
+
+- download modules:
+  ```bash
+  pip install -r requirements.txt
+
+
 ### Getting Started
+
+
 
 1. Train the model
 
@@ -53,13 +71,22 @@ rasa train
 rasa run actions
 ```
 
-3. To run the project
+3. To run the project and test using shell
 
 ```
 rasa shell
-```
 
-4. To reset the conversation state and starts a new dialogue session with the chatbot.
+4. to start rasa server to access on client side 
+
+```
+rasa run -m models --enable-api --cors "*"
+
+- access on client side using .env file (add following key-value into .env)
+
+REACT_APP_RASA="http://localhost:5005/webhooks/rest/webhook"
+
+
+5. To reset the conversation state and starts a new dialogue session with the chatbot.
 
 ```
 /restart

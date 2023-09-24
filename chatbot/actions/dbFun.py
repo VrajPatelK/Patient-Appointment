@@ -3,10 +3,10 @@ from pymongo import MongoClient
 import ssl
 
 # mongodb+srv://gauravteli:gauravteli@cluster0.iykzyey.mongodb.net/?retryWrites=true&w=majority
-# DB_URL = "mongodb://localhost:27017"
+DB_URL = "mongodb://localhost:27017"
 
 # ATLAS MONGODB DATA BASE URL
-DB_URL = "mongodb+srv://gauravteli:gauravteli@cluster0.iykzyey.mongodb.net/?retryWrites=true&w=majority"
+# DB_URL = "mongodb+srv://dhruv20345:azbxcy1023456@cluster0.thzxvn5.mongodb.net"
 
 # adding not adding the security by Secure Socket Layer
 client = MongoClient(DB_URL, ssl_cert_reqs=ssl.CERT_NONE)

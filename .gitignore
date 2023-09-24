@@ -1,6 +1,7 @@
 chatbot/actions/__pycache__
 chatbot/.rasa
 chatbot/cache
+chatbot/venv
 chatbot/models/*.gz
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 # dependencies

@@ -3,7 +3,7 @@ version: "3.1"
 nlu:
   - regex: mobile_no
     examples: |
-      - \b\d{4,}\b
+      - \b\d{10}\b
 
   - regex: age
     examples: |
