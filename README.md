@@ -51,20 +51,20 @@
 
 
 - open client directory
-```
-cd client/
-```
+  ```
+  cd client/
+  ```
 
 - install Reactjs modules
-```
-npm install
-```
+  ```
+  npm install
+  ```
 
 #### setup for server (must have directory path of chatbot directory in terminal)
 - open chatbot directory
-```
-cd chatbot/
-```
+  ```
+  cd chatbot/
+  ```
 
 - Create a virtual environment:
   ```bash
@@ -81,47 +81,44 @@ cd chatbot/
 #### run the client 
 
 1. open client directory in terminal
-```
-cd client/
-``` 
+  ```
+  cd client/
+  ``` 
 
 2. start client side
-```
-npm start
-``` 
+  ```
+  npm start
+  ``` 
 
 #### run the rasa server 
 1. open chatbot directory in terminal
-```
-cd chatbot/
-``` 
+  ```
+  cd chatbot/
+  ``` 
 
 2. Activate vertual environment
-```
-venv\Scripts\Activate.ps1
-```
+  ```
+  venv\Scripts\Activate.ps1
+  ```
 
 3. Train the model
-```
-rasa train
-```
+  ```
+  rasa train
+  ```
 4. To start rasa server to access on client side 
-
-```
-rasa run -m models --enable-api --cors "*"
-```
+  ```
+  rasa run -m models --enable-api --cors "*"
+  ```
 
 5. To run action.py file (in another terminal)
-
-```
-rasa run actions
-```
+  ```
+  rasa run actions
+  ```
 
 6. To reset the conversation state and starts a new dialogue session with the chatbot.
-
-```
-/restart
-```
+  ```
+  /restart
+  ```
 
 
 ##### access on client side using .env file 
