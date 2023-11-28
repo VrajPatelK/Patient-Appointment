@@ -17,8 +17,6 @@
 
 <img src="https://img.shields.io/badge/-React.js-61DAFB.svg" alt="React.js" style="margin-right:1rem">
 
-<img src="https://img.shields.io/badge/-CSS-1572B6.svg" alt="CSS" style="margin-right:1rem">
-
 ##### Backend Development
 
 <img src="https://img.shields.io/badge/-Python-3776AB.svg" alt="Python" style="margin-right:1rem">

@@ -326,8 +326,8 @@ class ValidateCancelForm(FormValidationAction):
             return {"aid": slot_value, "requested_slot": None}
         else:
             email = dt["email"]
-            # otp = sendOtpMail(email)
-            otp="123457"
+            otp = sendOtpMail(email)
+            # otp="123457"
             # print(otp)
             dispatcher.utter_message(
                 text=f"Yes Valid Appointment ID. and OTP is send to your registered email "+email)
