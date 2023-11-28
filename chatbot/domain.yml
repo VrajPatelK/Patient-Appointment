@@ -8,26 +8,264 @@ intents:
   - mood_great
   - mood_unhappy
   - bot_challenge
+  - call_me
+  - inform
+  - stop
+  - get_mobile_no
+  - call_cancel_form
+  - get_AID
+  - get_email
+  - wr_otp
+  - call_check_appointment_form
+  - get_appointment_date
+  - get_appointment_time
+  - get_dr_name
+
+entities:
+  - name
+  - age
+  - mobile_no
+  - email
+  - city
+  - aid
+  - sentOTP
+  - otp
+  - correct_name
+  - GPE
+  - PERSON
+  - DATE
+  - CARDINAL
+  - ORG
+  - appointment_time
+  - appointment_date
+  - allAvailableTimeSlots
+  - allAvailableDates
+  - dr_name
+
+actions:
+  - action_get_form_details
+  - validate_app_form
+  - validate_cancel_form
+  - action_successfull_cancel
+  - validate_status_form
+  - action_status_information
+  - action_deactivate_form
+  - action_ask_appointment_time
+  - action_ask_appointment_date
+  - action_ask_dr_name
+
+slots:
+  # form_name:
+  #   type: text
+  #   influence_conversation: true
+  #   mappings:
+  #   - type: from_entity
+  #     entity: name
+
+  #  form appointment slots
+
+  name:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: name
+        conditions:
+          - active_loop: app_form
+  dr_name:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: dr_name
+        conditions:
+          - active_loop: app_form
+
+  appointment_time:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: appointment_time
+        conditions:
+          - active_loop: app_form
+
+  appointment_date:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: appointment_date
+        conditions:
+          - active_loop: app_form
+  
+
+  correct_name:
+    type: rasa.shared.core.slots.BooleanSlot
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: correct_name
+  age:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: age
+        conditions:
+          - active_loop: app_form
+  mobile_no:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: mobile_no
+        conditions:
+          - active_loop: app_form
+  email:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: email
+        conditions:
+          - active_loop: app_form
+  city:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: city
+        conditions:
+          - active_loop: app_form
+
+  # for Status Form ...... many to one mapping of slots with the entity ......
+  checkaid:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: aid
+        conditions:
+          - active_loop: status_form
+
+  # form cancel slots .
+  aid:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: aid
+        conditions:
+          - active_loop: cancel_form
+  otp:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: otp
+
+  sentOTP:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: sentOTP
+
+  allAvailableTimeSlots:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: allAvailableTimeSlots
+  
+  allAvailableDates:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: allAvailableDates
+
+forms:
+  app_form:
+    required_slots:
+      - name
+      - age
+      - mobile_no
+      - city
+      - dr_name
+      - appointment_date
+      - appointment_time
+      - email
+      - otp
+
+  cancel_form:
+    required_slots:
+      - aid
+      - otp
+
+  status_form:
+    required_slots:
+      - checkaid
 
 responses:
   utter_greet:
-  - text: "Hey! How are you?"
+    - text: "Hey! How can i help you, Today?"
+
+  utter_remember:
+    - text: "form is filled up"
 
   utter_cheer_up:
-  - text: "Here is something to cheer you up:"
-    image: "https://i.imgur.com/nGF1K8f.jpg"
+    - text: "Here is something to cheer you up:"
+      image: "https://i.imgur.com/nGF1K8f.jpg"
 
   utter_did_that_help:
-  - text: "Did that help you?"
+    - text: "Did that help you?"
 
   utter_happy:
-  - text: "Great, carry on!"
+    - text: "Great, carry on!"
 
   utter_goodbye:
-  - text: "Bye"
+    - text: "Bye"
+
+  utter_ask_continue:
+    - text: "Ohk Bye !"
+
+  # message fot form appointment
+  utter_ask_name:
+    - text: "what is your name ?"
+
+  utter_ask_age:
+    - text: "what is your age ?"
+
+  utter_ask_email:
+    - text: "what is your email ?"
+
+  utter_ask_mobile_no:
+    - text: "what is your mobile number ?"
+
+  utter_ask_city:
+    - text: "what is your city ?"
+
+  # utter_ask_appointmentTime:
+  # - text: "Enter on which time you want to take appointment ?"
+
+  # utter_ask_appointmentDate:
+  #   - text: "Enter on which date you want to take appointment ?"
+
+  # message for form cancellation
+
+  utter_ask_aid:
+    - text: "Enter the Appointment ID ?"
+
+  utter_ask_checkaid:
+    - text: "Enter the CHECK Appointment ID ?"
+
+  utter_ask_otp:
+    - text: "Enter the 6-digit otp that has been received on your registered Email Id ?"
 
   utter_iamabot:
-  - text: "I am a bot, powered by Rasa."
+    - text: "I am a bot, powered by Rasa."
 
 session_config:
   session_expiration_time: 60
